@@ -69,11 +69,11 @@
     <ClCompile Include="Game\GameTitle.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>ゲーム\Stage</Filter>
-    </ClCompile>
     <ClCompile Include="Game\ObjectBase.cpp">
       <Filter>ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Stage.cpp">
+      <Filter>ゲーム\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,11 +119,11 @@
     <ClInclude Include="Game\GameTitle.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>ゲーム\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ObjectBase.h">
       <Filter>ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage\Stage.h">
+      <Filter>ゲーム\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

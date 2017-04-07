@@ -11,8 +11,11 @@
 #include "Stage.h"
 #include <fstream>
 #include <sstream>
+#include <SimpleMath.h>
 
 using namespace std;
+using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 //----------------------------------------------------------------------
 //! @brief コンストラクタ
@@ -21,7 +24,8 @@ using namespace std;
 //----------------------------------------------------------------------
 Stage::Stage()
 {
-	importData("Resources\\map\\map.csv");
+	m_map_image = new Texture(L"Resources\\Images\\PongImage.png");		//マップの画像
+	ImportData("Resources\\map\\map.csv");	//マップの読み込み
 }
 
 //----------------------------------------------------------------------
@@ -29,7 +33,7 @@ Stage::Stage()
 //----------------------------------------------------------------------
 Stage::~Stage()
 {
-
+	delete m_map_image;
 }
 
 //----------------------------------------------------------------------
@@ -41,8 +45,32 @@ Stage::~Stage()
 //----------------------------------------------------------------------
 void Stage::DrawStage()
 {
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		for (int j = 0; j < MAP_WIDTH; j++)
+		{
+			//壁の描画
+			switch (m_map[i][j])
+			{
+			case WALL:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
+			case SMALLWALL:
+				break;
+			case WATER:
+				break;
+			default:
+				break;
+			}
+			{
+			}
+			//半分の壁の描画
+
+		}
+	}
 
 }
+
 
 //----------------------------------------------------------------------
 //! @brief csvファイルの読み込み
@@ -51,17 +79,16 @@ void Stage::DrawStage()
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Stage::importData(string filename)
+void Stage::ImportData(string filename)
 {
 	ifstream ifs(filename);
 	string str;
 	int i;
-
 	if (!ifs)
 	{
 		for (i = 0; i < MAX_TIP; i++)
 		{
-			g_map[i / 20][i % 20] = 4;
+			m_map[i / MAP_WIDTH][i % MAP_WIDTH] = 0;
 		}
 	}
 
@@ -76,10 +103,24 @@ void Stage::importData(string filename)
 		{
 			//すべて文字列として読み込まれるため
 			//数値は変換が必要
-			g_map[i / 20][i % 20] = atoi(token.c_str());
+			m_map[i / MAP_WIDTH][i % MAP_WIDTH] = atoi(token.c_str());
 			i++;
 		}
-		g_map[i / 20][i % 20] = atoi(token.c_str());
 	}
+
+}
+
+//----------------------------------------------------------------------
+//! @brief スプライトの描画
+//!
+//! @param[in] 画像のAABB、高さ、幅
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Stage::DrawSprite(int grp_x, int grp_y, int grp_w, int grp_h, int i,int j)
+{
+	RECT rect = { grp_x,grp_y,grp_w,grp_h };
+	g_spriteBatch->Draw(m_map_image->m_pTexture, Vector2(CHIPSIZE * j, CHIPSIZE * i),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
 }

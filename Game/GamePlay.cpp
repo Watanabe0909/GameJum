@@ -12,10 +12,9 @@
 #include "GameMain.h"
 #include "GamePlay.h"
 
-
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
-
+using namespace std;
 //グローバル変数＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝－
 
 //関数の定義＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝－
@@ -70,5 +69,6 @@ void Play::Update()
 //----------------------------------------------------------------------
 void Play::Render()
 {
-
+	m_stage.DrawStage();
 }
+

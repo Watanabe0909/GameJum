@@ -48,7 +48,7 @@ GameBase* base;
 void InitializeGame(void)
 {
 
-	base =new Title();
+	base =new Play();
 
 
 	g_NextScene = g_scene;

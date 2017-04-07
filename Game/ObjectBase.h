@@ -8,16 +8,16 @@
 class ObjectBase
 {
 protected:
-	Texture *handle;	//グラフィックハンドル 
-	int grp_x;			//元画像のｘ座標 
-	int grp_y;			//元画像のｙ座標 
-	int grp_w;			//元画像の幅 
-	int grp_h;			//元画像の高さ 
-	float pos_x;		//座標x 
-	float pos_y;		//座標y 
-	float spd_x;		//速度x 
-	float spd_y;		//速度y 
-	int state;			//状態
+	Texture *m_handle;	//グラフィックハンドル 
+	int m_grp_x;			//元画像のｘ座標 
+	int m_grp_y;			//元画像のｙ座標 
+	int m_grp_w;			//元画像の幅 
+	int m_grp_h;			//元画像の高さ 
+	float m_pos_x;		//座標x 
+	float m_pos_y;		//座標y 
+	float m_spd_x;		//速度x 
+	float m_spd_y;		//速度y 
+	int m_state;			//状態
 
 public:
 	void SetHandle(Texture *p);		//	ハンドルの設定

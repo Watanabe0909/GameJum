@@ -12,15 +12,16 @@
 #pragma once
 //	ヘッダファイルのインクルード
 #include "GameBase.h"
-
+#include "Stage\Stage.h"
 //クラス
 class Play:public GameBase
 {
 private:
-
+	Stage m_stage;
 public:
 	Play();				//	コンストラクタ
 	~Play();			//	デストラクタ
 	void Update();		//	更新処理
 	void Render();		//	描画処理
+
 };
