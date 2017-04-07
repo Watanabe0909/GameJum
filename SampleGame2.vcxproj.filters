@@ -28,6 +28,9 @@
     <Filter Include="ゲーム\Player">
       <UniqueIdentifier>{f86aaaff-77a2-4ad8-8a83-3ee04babdb6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲーム\Stage">
+      <UniqueIdentifier>{51ea2e9a-6dc0-4f15-88ca-8b27a3fb5cd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImaseLib\FPSTimer.cpp">
