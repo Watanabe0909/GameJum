@@ -28,6 +28,9 @@
     <Filter Include="ゲーム\Player">
       <UniqueIdentifier>{f86aaaff-77a2-4ad8-8a83-3ee04babdb6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲーム\Stage">
+      <UniqueIdentifier>{51ea2e9a-6dc0-4f15-88ca-8b27a3fb5cd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImaseLib\FPSTimer.cpp">
@@ -54,9 +57,6 @@
     <ClCompile Include="Game\GameClear.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameLogo.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameMain.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
@@ -68,6 +68,12 @@
     </ClCompile>
     <ClCompile Include="Game\GameTitle.cpp">
       <Filter>ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ObjectBase.cpp">
+      <Filter>ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Stage.cpp">
+      <Filter>ゲーム\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +107,6 @@
     <ClInclude Include="Game\GameClear.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameLogo.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameMain.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
@@ -115,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Game\GameTitle.h">
       <Filter>ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ObjectBase.h">
+      <Filter>ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage\Stage.h">
+      <Filter>ゲーム\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,41 +1,43 @@
+//	多重インクルードの防止
 #pragma once
 
+//	ヘッダファイルのインクルード
 #include "..\DirectXTK.h"
 #include "..\Texture.h"
 
 class ObjectBase
 {
 protected:
-	Texture *handle;	//グラフィックハンドル 
-	int grp_x;			//元画像のｘ座標 
-	int grp_y;			//元画像のｙ座標 
-	int grp_w;			//元画像の幅 
-	int grp_h;			//元画像の高さ 
-	float pos_x;		//座標x 
-	float pos_y;		//座標y 
-	float spd_x;		//速度x 
-	float spd_y;		//速度y 
-	int state;			//状態
+	Texture *m_handle;	//グラフィックハンドル 
+	int m_grp_x;			//元画像のｘ座標 
+	int m_grp_y;			//元画像のｙ座標 
+	int m_grp_w;			//元画像の幅 
+	int m_grp_h;			//元画像の高さ 
+	float m_pos_x;		//座標x 
+	float m_pos_y;		//座標y 
+	float m_spd_x;		//速度x 
+	float m_spd_y;		//速度y 
+	int m_state;			//状態
 
 public:
-	void SetHandle(Texture *p);
-	Texture* GetHandle();
-	void SetGrpX(float x);
-	float GetGrpX();
-	void SetGrpY(float y);
-	float GetGrpY();
-	void SetGrpW(float w);
-	float GetGrpW();
-	void SetGrpH(float h);
-	float GetGrpH();
-	void SetPosX(float x);
-	float GetPosX();
-	void SetPosY(float y);
-	float GetPosY();
-	void SetSpdX(float x);
-	void SetSpdY(float y);
-	void SetState(int n);
-	int GetState();
-	void Update();
-	void Render();
+	void SetHandle(Texture *p);		//	ハンドルの設定
+	Texture* GetHandle();			//	ハンドルの取得
+	void SetGrpX(float x);			//	ハンドル座標xの設定
+	float GetGrpX();				//	ハンドル座標xの取得
+	void SetGrpY(float y);			//	ハンドル座標yの設定
+	float GetGrpY();				//	ハンドル座標yの取得
+	void SetGrpW(float w);			//	オブジェクトの幅を設定
+	float GetGrpW();				//	オブジェクトの幅を取得
+	void SetGrpH(float h);			//	オブジェクトの高さを設定
+	float GetGrpH();				//	オブジェクトの高さを取得
+	void SetPosX(float x);			//	オブジェクトの座標xの設定
+	float GetPosX();				//	オブジェクトの座標xの取得
+	void SetPosY(float y);			//	オブジェクトの座標yの設定
+	float GetPosY();				//	オブジェクトの座標yの取得
+	void SetSpdX(float x);			//	オブジェクトのスピードxの設定
+	void SetSpdY(float y);			//	オブジェクトのスピードyの設定
+	void SetState(int n);			//	オブジェクトのステートを設定
+	int GetState();					//	オブジェクトのステートを取得
+	void Update();					//	更新処理
+	void Render();					//	描画処理
 };

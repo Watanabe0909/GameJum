@@ -3,9 +3,12 @@
 //!
 //! @brief  ゲーム関連のソースファイル
 //!
-//! @date   2016/11/04		
+//! @date   2017/04/07		
 //!
-//! @author 山田唯真
+
+//! @author 加藤 竜哉
+//! @author 佐久間尚輝
+
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 #pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
 
@@ -18,24 +21,20 @@
 #include "GameTitle.h"
 #include "GameClear.h"
 #include "GameOver.h"
-#include "GameLogo.h"
 #include "Box.h"
 #include <ctime>
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
 // プロトタイプ宣言 ====================================================
 
 // グローバル変数の定義 ====================================================
-
-Texture *g_BlockImage;
 Texture *g_grpBack;
 Texture *g_grpResult;
 Texture *g_grpOver;
 Texture *g_grpTitle;
 GameBase* base;
-int g_time;
-int g_highscore;
 
 // 関数の定義 ==============================================================
 
@@ -48,7 +47,10 @@ int g_highscore;
 //----------------------------------------------------------------------
 void InitializeGame(void)
 {
-	base =new Logo();
+
+	base =new Play();
+
+
 	g_NextScene = g_scene;
 }
 
@@ -78,10 +80,6 @@ void UpdateGame(void)
 		//シーンごとの呼び出し
 		switch (g_scene)
 		{
-		case LOGO:
-			base = new Logo();
-			break;
-
 		case TITLE:
 			base = new Title();
 			break;

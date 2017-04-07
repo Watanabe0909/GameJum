@@ -3,12 +3,14 @@
 //!
 //! @brief  クリアシーンのヘッダファイル
 //!
-//! @date   2016/12/12
+//! @date   2017/04/07
 //!
-//! @author 山田唯真
+//! @author 加藤 竜哉
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 
+//	多重インクルードの防止
 #pragma once
+//	ヘッダファイルのインクルード
 #include "GameBase.h"
 
 class Clear : public GameBase 
@@ -16,8 +18,8 @@ class Clear : public GameBase
 private:
 
 public:
-	Clear();
-	~Clear();
-	void Update();
-	void Render();
+	Clear();			//	コンストラクタ
+	~Clear();			//	デストラクタ
+	void Update();		//	更新処理
+	void Render();		//	描画処理
 };
