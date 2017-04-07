@@ -3,23 +3,24 @@
 //!
 //! @brief  プレイシーンのヘッダファイル
 //!
-//! @date   2016/12/12
+//! @date   2017/04/07
 //!
-//! @author 山田唯真
+//! @author 加藤 竜哉
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 
+//	多重インクルードの防止
 #pragma once
+//	ヘッダファイルのインクルード
 #include "GameBase.h"
 
 //クラス
 class Play:public GameBase
 {
 private:
-	Player* m_player;
 
 public:
-	Play();
-	~Play();
-	void Update();
-	void Render();
+	Play();				//	コンストラクタ
+	~Play();			//	デストラクタ
+	void Update();		//	更新処理
+	void Render();		//	描画処理
 };

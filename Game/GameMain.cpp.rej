@@ -1,0 +1,9 @@
+diff a/Game/GameMain.cpp b/Game/GameMain.cpp	(rejected hunks)
+@@ -9,6 +9,7 @@
+ //! @author ���� ����
+ =======
+ //! @author ���v�ԏ��P
++>>>>>>> 980640363c919d924a5076a4fa66cbf68a3c0fc1
+ //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+ #pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+ 

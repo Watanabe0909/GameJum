@@ -89,7 +89,6 @@
     <ClCompile Include="Direct3D.cpp" />
     <ClCompile Include="DirectXTK.cpp" />
     <ClCompile Include="Game\GameClear.cpp" />
-    <ClCompile Include="Game\GameLogo.cpp" />
     <ClCompile Include="Game\GameMain.cpp" />
     <ClCompile Include="Game\GameOver.cpp" />
     <ClCompile Include="Game\GamePlay.cpp" />
@@ -108,7 +107,6 @@
     <ClInclude Include="Game\CueSheet_0.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\GameClear.h" />
-    <ClInclude Include="Game\GameLogo.h" />
     <ClInclude Include="Game\GameMain.h" />
     <ClInclude Include="Game\GameOver.h" />
     <ClInclude Include="Game\GamePlay.h" />
