@@ -94,9 +94,11 @@
     <ClCompile Include="Game\GameOver.cpp" />
     <ClCompile Include="Game\GamePlay.cpp" />
     <ClCompile Include="Game\GameTitle.cpp" />
+    <ClCompile Include="Game\ObjectBase.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="ImaseLib\FPSTimer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +113,11 @@
     <ClInclude Include="Game\GameOver.h" />
     <ClInclude Include="Game\GamePlay.h" />
     <ClInclude Include="Game\GameTitle.h" />
+    <ClInclude Include="Game\ObjectBase.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="ImaseLib\FPSTimer.h" />
     <ClInclude Include="MemoryLeakDetector.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
