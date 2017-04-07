@@ -1,5 +1,7 @@
+//	多重インクルードの防止
 #pragma once
 
+//	ヘッダファイルのインクルード
 #include "..\DirectXTK.h"
 #include "..\Texture.h"
 
@@ -18,24 +20,24 @@ protected:
 	int state;			//状態
 
 public:
-	void SetHandle(Texture *p);
-	Texture* GetHandle();
-	void SetGrpX(float x);
-	float GetGrpX();
-	void SetGrpY(float y);
-	float GetGrpY();
-	void SetGrpW(float w);
-	float GetGrpW();
-	void SetGrpH(float h);
-	float GetGrpH();
-	void SetPosX(float x);
-	float GetPosX();
-	void SetPosY(float y);
-	float GetPosY();
-	void SetSpdX(float x);
-	void SetSpdY(float y);
-	void SetState(int n);
-	int GetState();
-	void Update();
-	void Render();
+	void SetHandle(Texture *p);		//	ハンドルの設定
+	Texture* GetHandle();			//	ハンドルの取得
+	void SetGrpX(float x);			//	ハンドル座標xの設定
+	float GetGrpX();				//	ハンドル座標xの取得
+	void SetGrpY(float y);			//	ハンドル座標yの設定
+	float GetGrpY();				//	ハンドル座標yの取得
+	void SetGrpW(float w);			//	オブジェクトの幅を設定
+	float GetGrpW();				//	オブジェクトの幅を取得
+	void SetGrpH(float h);			//	オブジェクトの高さを設定
+	float GetGrpH();				//	オブジェクトの高さを取得
+	void SetPosX(float x);			//	オブジェクトの座標xの設定
+	float GetPosX();				//	オブジェクトの座標xの取得
+	void SetPosY(float y);			//	オブジェクトの座標yの設定
+	float GetPosY();				//	オブジェクトの座標yの取得
+	void SetSpdX(float x);			//	オブジェクトのスピードxの設定
+	void SetSpdY(float y);			//	オブジェクトのスピードyの設定
+	void SetState(int n);			//	オブジェクトのステートを設定
+	int GetState();					//	オブジェクトのステートを取得
+	void Update();					//	更新処理
+	void Render();					//	描画処理
 };

@@ -17,6 +17,7 @@
 #define EXTERN
 #endif
 
+//	ヘッダファイルのインクルード
 #include<windows.h>
 #include<d3d11.h>
 #include<SimpleMath.h>
@@ -25,12 +26,11 @@
 #include"..\ADX2Le.h"
 #include"CueSheet_0.h"
 
-class Player;
 
 // 定数の定義 ==============================================================
 
 // ゲームタイトル
-#define GAME_TITLE "thousand"
+#define GAME_TITLE "NightMare"
 
 // ゲーム画面
 #define SCREEN_WIDTH  640    // 幅[pixel]

@@ -54,9 +54,6 @@
     <ClCompile Include="Game\GameClear.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameLogo.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameMain.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
       <Filter>ゲーム</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameTitle.cpp">
+      <Filter>ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ObjectBase.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,9 +101,6 @@
     <ClInclude Include="Game\GameClear.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameLogo.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameMain.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
       <Filter>ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameTitle.h">
+      <Filter>ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ObjectBase.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
