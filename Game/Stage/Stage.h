@@ -19,10 +19,11 @@ class Texture;
 //enum
 enum Map
 {
-	NONE,		//âΩÇ‡Ç»Çµ
-	WALL,		//ï«
-	SMALLWALL,	//îºï™ÇÃï«
-	WATER,		//êÖ
+	NONE,			//âΩÇ‡Ç»Çµ
+	WALL,			//ï«
+	HORIZONTALWALL,	//â°í∑ÇÃï«
+	VERTICALWALL,	//ècí∑ÇÃï«
+	WATER,			//êÖ
 };
 
 class Stage 

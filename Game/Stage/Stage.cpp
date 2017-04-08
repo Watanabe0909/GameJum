@@ -52,11 +52,19 @@ void Stage::DrawStage()
 			//ï«ÇÃï`âÊ
 			switch (m_map[i][j])
 			{
+				//ï«
 			case WALL:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
-			case SMALLWALL:
+				//â°í∑ÇÃï«
+			case HORIZONTALWALL:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE / 2, i, j);
 				break;
+				//ècí∑ÇÃï«
+			case VERTICALWALL:
+				DrawSprite(0, 0, CHIPSIZE / 2, CHIPSIZE, i, j);
+				break;
+				//êÖ
 			case WATER:
 				break;
 			default:
