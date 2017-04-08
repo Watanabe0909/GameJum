@@ -16,12 +16,14 @@
 class Title:public GameBase
 {
 private:
+	Texture *m_title_image;					//	タイトル画像
+	bool m_fade_flag;							//	フェード用フラグ				
 
 public:
-	Title();			//	コンストラクタ
-	~Title();			//	デストラクタ
-	void Update();		//	更新処理
-	void Render();		//	描画処理
+	Title();					//	コンストラクタ
+	~Title();					//	デストラクタ
+	void Update();				//	更新処理
+	void Render();				//	描画処理
 
 };
 
