@@ -22,6 +22,8 @@ private:
 	static const int M_BLOCK_GRP_W = M_BLOCK_SIZE * 3;		//grp_wのサイズ
 	static const int M_BLOCK_GRP_H = M_BLOCK_SIZE * 3;		//grp_hのサイズ
 	static const int M_BLOCK_POS_X = M_BLOCK_SIZE * 10;		//pos_xのサイズ
+	static const int M_BLOCK_SPD_Y_DOWN = 6;				//spd_yの下に動く速度の設定
+	static const int M_BLOCK_SPD_Y_UP = -6;					//spd_yの上に動く速度の設定
 	static const int m_pos_y_min = 0;						//動く座標の最小値
 	static const int m_pos_y_max = M_BLOCK_SIZE * 9;		//動く座標の最大値
 	Texture* g_gimmickimage;								//挟むギミック用の画像

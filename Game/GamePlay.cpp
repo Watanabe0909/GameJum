@@ -28,7 +28,7 @@ using namespace std;
 Play::Play()
 {
 	m_stage = new Stage;	//ステージ
-	m_moveblock = new Moveblock;
+	m_moveblock = new Moveblock;	//上下に動くギミック
 }
 
 //----------------------------------------------------------------------
@@ -42,7 +42,9 @@ Play::~Play()
 {
 	delete m_stage;	//ステージ
 	m_stage = nullptr;
-	delete m_moveblock;
+	delete m_moveblock;	//上下に動くギミック
+	m_moveblock = nullptr;
+	
 }
 
 //----------------------------------------------------------------------
@@ -62,7 +64,7 @@ void Play::Update()
 	//ステージの更新
 	m_stage->Update();
 
-
+	//上下に動くギミックの更新
 	m_moveblock->Update();
 
 }
@@ -78,6 +80,7 @@ void Play::Render()
 {
 	//ステージの描画
 	m_stage->DrawStage();
+	//上下に動くギミックの描画
 	m_moveblock->Render();
 }
 

@@ -52,11 +52,11 @@ void Moveblock::MoveUpDown()
 {
 	if (m_pos_y_min == m_pos_y)
 	{
-		SetSpdY(6);
+		SetSpdY(M_BLOCK_SPD_Y_DOWN);
 	}
 	else if (m_pos_y_max == m_pos_y)
 	{
-		SetSpdY(-6);
+		SetSpdY(M_BLOCK_SPD_Y_UP);
 	}
 }
 
