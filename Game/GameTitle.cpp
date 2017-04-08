@@ -26,10 +26,14 @@ Title::Title()
 {
 	//	タイトル画像の初期化
 	m_title_image = new Texture(L"Resources\\Images\\title.png");
+	m_title_image2 = new Texture(L"Resources\\Images\\title2.png");
 
 	//	フェード用変数の初期化
 	m_fade_flag = false;
 	m_alfa = 1.0f;
+
+	//	カウントの初期化
+	m_count = 0;
 }
 
 //----------------------------------------------------------------------
@@ -66,11 +70,24 @@ void Title::Update()
 		m_fade_flag = true;
 	}
 
+	//	フェードフラグがtrueなら透明度を上げる
 	if (m_fade_flag == true)
 	{
 		m_alfa -= 0.01f;
 	}
+	else
+	{
+		//	カウントを進める
+		m_count++;
+	}
 
+	//	カウントが40を超えたら0に戻す
+	if (m_count > 40)
+	{
+		m_count = 0;
+	}
+
+	//	透明ならシーンを切り替える
 	if (m_alfa <= 0.0f)
 	{
 		g_NextScene = PLAY;
@@ -87,6 +104,14 @@ void Title::Update()
 //----------------------------------------------------------------------
 void Title::Render()
 {
-	//	画像の描画
-	g_spriteBatch->Draw(m_title_image->m_pTexture, Vector2(0, 0), Color(255.0f, 255.0f, 255.0f, m_alfa));
+	if (m_count <= 20)
+	{
+		//	画像の描画
+		g_spriteBatch->Draw(m_title_image->m_pTexture, Vector2(0, 0), Color(1.0f, 1.0f, 1.0f, m_alfa));
+	}
+	else
+	{
+		//	画像の描画
+		g_spriteBatch->Draw(m_title_image2->m_pTexture, Vector2(0, 0), Color(1.0f, 1.0f, 1.0f, m_alfa));
+	}
 }
