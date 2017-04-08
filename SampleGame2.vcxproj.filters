@@ -1,162 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ImaseLib">
-      <UniqueIdentifier>{e362d905-15b5-4317-91e0-94bf38276c63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Font">
-      <UniqueIdentifier>{2e505f80-a828-4c6b-882e-2feefc5fae20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ゲーム">
-      <UniqueIdentifier>{38fdc5ed-29cf-497d-a8b4-631bc785f9b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ゲーム\sound">
-      <UniqueIdentifier>{1e7087f7-e664-4671-ae51-9d920aee5a80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ゲーム\Player">
-      <UniqueIdentifier>{f86aaaff-77a2-4ad8-8a83-3ee04babdb6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ゲーム\Stage">
-      <UniqueIdentifier>{51ea2e9a-6dc0-4f15-88ca-8b27a3fb5cd3}</UniqueIdentifier>
-    </Filter>
-<<<<<<< HEAD
-    <Filter Include="ゲーム\Object">
-      <UniqueIdentifier>{1efbc09b-918a-40e1-a1a9-ed696c04cca6}</UniqueIdentifier>
-=======
-    <Filter Include="ゲーム\Gimmick">
-      <UniqueIdentifier>{39540f28-9579-425e-afee-bfd4fa9f26e0}</UniqueIdentifier>
->>>>>>> 592c7ff96f3a6235e62b19fc2ccbf2838140ca34
-    </Filter>
+    <ClCompile Include="ADX2Le.cpp" />
+    <ClCompile Include="Direct3D.cpp" />
+    <ClCompile Include="DirectXTK.cpp" />
+    <ClCompile Include="Game\GameClear.cpp" />
+    <ClCompile Include="Game\GameMain.cpp" />
+    <ClCompile Include="Game\GameOver.cpp" />
+    <ClCompile Include="Game\GamePlay.cpp" />
+    <ClCompile Include="Game\GameTitle.cpp" />
+    <ClCompile Include="Game\MoveBlock.cpp" />
+    <ClCompile Include="Game\ObjectBase.cpp" />
+    <ClCompile Include="Game\Object\Press.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\Stage\Stage.cpp" />
+    <ClCompile Include="ImaseLib\FPSTimer.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Game\Object\Burner.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ImaseLib\FPSTimer.cpp">
-      <Filter>ImaseLib</Filter>
-    </ClCompile>
-    <ClCompile Include="Direct3D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXTK.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ADX2Le.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player.cpp">
-      <Filter>ゲーム\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameClear.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameMain.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameOver.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GamePlay.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameTitle.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ObjectBase.cpp">
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Stage\Stage.cpp">
-      <Filter>ゲーム\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\MoveBlock.cpp">
-<<<<<<< HEAD
-      <Filter>ゲーム</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Object\Press.cpp">
-      <Filter>ゲーム\Object</Filter>
-=======
-      <Filter>ゲーム\Gimmick</Filter>
->>>>>>> 592c7ff96f3a6235e62b19fc2ccbf2838140ca34
-    </ClCompile>
+    <ClInclude Include="ADX2Le.h" />
+    <ClInclude Include="Direct3D.h" />
+    <ClInclude Include="DirectXTK.h" />
+    <ClInclude Include="Game\CueSheet_0.h" />
+    <ClInclude Include="Game\GameBase.h" />
+    <ClInclude Include="Game\GameClear.h" />
+    <ClInclude Include="Game\GameMain.h" />
+    <ClInclude Include="Game\GameOver.h" />
+    <ClInclude Include="Game\GamePlay.h" />
+    <ClInclude Include="Game\GameTitle.h" />
+    <ClInclude Include="Game\MoveBlock.h" />
+    <ClInclude Include="Game\ObjectBase.h" />
+    <ClInclude Include="Game\Object\Press.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\Stage\Stage.h" />
+    <ClInclude Include="ImaseLib\FPSTimer.h" />
+    <ClInclude Include="MemoryLeakDetector.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Game\Object\Burner.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImaseLib\FPSTimer.h">
-      <Filter>ImaseLib</Filter>
-    </ClInclude>
-    <ClInclude Include="Direct3D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXTK.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ADX2Le.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player.h">
-      <Filter>ゲーム\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryLeakDetector.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CueSheet_0.h">
-      <Filter>ゲーム\sound</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameBase.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameClear.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameMain.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameOver.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GamePlay.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameTitle.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ObjectBase.h">
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Stage\Stage.h">
-      <Filter>ゲーム\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\MoveBlock.h">
-<<<<<<< HEAD
-      <Filter>ゲーム</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Object\Press.h">
-      <Filter>ゲーム\Object</Filter>
-=======
-      <Filter>ゲーム\Gimmick</Filter>
->>>>>>> 592c7ff96f3a6235e62b19fc2ccbf2838140ca34
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="myfile.spritefont">
-      <Filter>Font</Filter>
-    </None>
+    <None Include="myfile.spritefont" />
   </ItemGroup>
 </Project>
