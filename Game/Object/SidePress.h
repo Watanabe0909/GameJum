@@ -13,6 +13,7 @@
 
 //	ヘッダファイルの読み込み
 #include "..\ObjectBase.h"
+//クラス
 class SidePress : public ObjectBase
 {
 private:
