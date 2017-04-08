@@ -11,9 +11,6 @@
 //ヘッダファイルの読込
 #include "MoveBlock.h"
 
-using namespace DirectX::SimpleMath;
-using namespace DirectX;
-
 
 //関数の定義＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝－
 //----------------------------------------------------------------------
