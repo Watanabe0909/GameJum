@@ -57,7 +57,6 @@ void Play::Update()
 	{
 	}	
 
-	m_moveblock->Move_up_down();
 
 	m_moveblock->Update();
 
