@@ -95,6 +95,7 @@
     <ClCompile Include="Game\GameTitle.cpp" />
     <ClCompile Include="Game\MoveBlock.cpp" />
     <ClCompile Include="Game\ObjectBase.cpp" />
+    <ClCompile Include="Game\Object\Burner.cpp" />
     <ClCompile Include="Game\Object\Press.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="Game\GameTitle.h" />
     <ClInclude Include="Game\MoveBlock.h" />
     <ClInclude Include="Game\ObjectBase.h" />
+    <ClInclude Include="Game\Object\Burner.h" />
     <ClInclude Include="Game\Object\Press.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Stage\Stage.h" />

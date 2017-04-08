@@ -153,12 +153,12 @@ void Play::Render()
 
 	//ステージの描画
 	m_stage->DrawStage();
-	//上下に動くギミックの描画
-	m_moveblock->Render();
+	//オブジェクトの描画
+	m_stage->ObjectDraw();
 
 
 	//	ポーズフラグがtrueなら下の処理を行う
-	if (m_pause_flag == true)
+	if (m_pause_flag)
 	{
 		//	画像の描画
 		g_spriteBatch->Draw(m_pause_image->m_pTexture, Vector2(0, 0));

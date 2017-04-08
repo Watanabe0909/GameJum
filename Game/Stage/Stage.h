@@ -14,6 +14,7 @@
 #include <string>
 #include "..\ObjectBase.h"
 #include "..\Object\Press.h"
+#include "..\Object\Burner.h"
 //クラスの呼び出し
 class Texture;
 
@@ -21,11 +22,13 @@ class Texture;
 enum Map
 {
 	NONE,			//何もなし
+	BACKGROUND,		//背景
 	WALL,			//壁
 	HORIZONTALWALL,	//横長の壁
 	VERTICALWALL,	//縦長の壁
 	WATER,			//水
 	PRESS,			//プレス機
+	BURNER,			//バーナー
 };
 
 class Stage 
@@ -38,13 +41,16 @@ private:
 	static const int MAX_PRESS_NUM = 3;	//プレス機の数
 	int m_map[MAP_HEIGHT][MAP_WIDTH];	//マップ
 	Texture* m_map_image;				//マップの画像
-	void ImportData(std::string filename);	//csvファイルからの読み込み
 	Press* m_press[MAX_PRESS_NUM];		//プレス機
-	int m_press_count;					//カウント
+	Burner* m_burner[MAX_PRESS_NUM];	//バーナー
+	int m_press_count;					//プレス機のカウント
+	int m_burner_count;					//バーナーのカウント
+	void ImportData(std::string filename);	//csvファイルからの読み込み
 public:
 	Stage();			//コンストラクタ
 	~Stage();			//デストラクタ
 	void DrawStage();	//ステージの描画
 	void Update();		//アップデート
+	void ObjectDraw();	//オブジェクトの描画
 	void DrawSprite(int grp_x, int grp_y, int grp_w, int grp_h, int i, int j);	//スプライトの描画
 };
