@@ -16,10 +16,12 @@
 #include "Object\Press.h"
 #include "Object\SidePress.h"
 #include "MoveBlock.h"
+
 //クラス
 class Play:public GameBase
 {
 private:
+
 	Stage* m_stage;
 	Moveblock* m_moveblock;
 	SidePress* m_sidepress[2];
@@ -29,4 +31,17 @@ public:
 	void Update();		//	更新処理
 	void Render();		//	描画処理
 
+	Texture *m_pause_image;		//	ポーズ時画像
+	Texture *m_line_image;		//	選択用線の画像
+	bool m_pause_flag;			//	ポーズフラグ
+	int m_pause_select;			//	ポーズ時選択用変数
+
+	const int RETURN = 0;		//	ゲームに戻るときの定数
+	const int RETURN_TITLE = 1; //	タイトルに戻るときの定数
+
+public:
+	Play();						//	コンストラクタ
+	~Play();					//	デストラクタ
+	void Update();				//	更新処理
+	void Render();				//	描画処理
 };

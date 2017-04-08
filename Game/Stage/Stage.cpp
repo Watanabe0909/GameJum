@@ -23,9 +23,10 @@ using namespace DirectX;
 //! @param[in] なし
 //----------------------------------------------------------------------
 Stage::Stage()
-	:m_press_count(0)	//カウント
+	:m_press_count(0)	//プレス機のカウント
+	,m_burner_count(0)	//バーナーのカウント
 {
-	m_map_image = new Texture(L"Resources\\Images\\PongImage.png");		//マップの画像
+	m_map_image = new Texture(L"Resources\\Images\\MapChip.png");		//マップの画像
 	ImportData("Resources\\map\\map.csv");	//マップの読み込み
 	//オブジェクト用
 	for (int i = 0; i < MAP_HEIGHT; i++)
@@ -38,6 +39,11 @@ Stage::Stage()
 			case PRESS:
 				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE);
 				m_press_count++;
+				break;
+				//バーナーの生成
+			case BURNER:
+				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE);
+				m_burner_count++;
 				break;
 			default:
 				break;
@@ -58,6 +64,11 @@ Stage::~Stage()
 		delete m_press[i];	//プレス機
 		m_press[i] = nullptr;
 	}
+	for (int i = 0; i < m_burner_count; i++)
+	{
+		delete m_burner[i];	//バーナー
+		m_burner[i] = nullptr;
+	}
 }
 
 //----------------------------------------------------------------------
@@ -76,30 +87,36 @@ void Stage::DrawStage()
 			//壁の描画
 			switch (m_map[i][j])
 			{
+			case BACKGROUND :
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
 				//壁
 			case WALL:
-				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				DrawSprite(CHIPSIZE, 0 , CHIPSIZE * WALL, CHIPSIZE, i, j);
 				break;
 				//横長の壁
 			case HORIZONTALWALL:
-				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE / 2, i, j);
+				DrawSprite(CHIPSIZE * WALL, 0 ,
+					CHIPSIZE * HORIZONTALWALL, CHIPSIZE, i, j);
 				break;
 				//縦長の壁
 			case VERTICALWALL:
-				DrawSprite(0, 0, CHIPSIZE / 2, CHIPSIZE, i, j);
+				DrawSprite(CHIPSIZE * HORIZONTALWALL, 0,
+					CHIPSIZE * VERTICALWALL , CHIPSIZE , i, j);
 				break;
 				//水
 			case WATER:
 				break;
 				//プレス機
 			case PRESS:
-				for (int k = 0; k < m_press_count; k++)
-				m_press[k]->Render();
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
+				//バーナー
+			case BURNER:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
 			default:
 				break;
-			}
-			{
 			}
 
 		}
@@ -122,6 +139,33 @@ void Stage::Update()
 		m_press[i]->Update();	//座標変更
 		m_press[i]->Move();		//移動
 	}
+	//バーナー
+	for (int i = 0; i < m_burner_count; i++)
+	{
+		m_burner[i]->Ignition();
+	}
+}
+
+//----------------------------------------------------------------------
+//! @brief オブジェクトの描画
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Stage::ObjectDraw()
+{
+	//プレス機
+	for (int i = 0; i < m_press_count; i++)
+		m_press[i]->Render();
+	//バーナー
+	for (int i = 0; i < m_burner_count; i++)
+	{
+		//バーナーが生きている時
+		if (m_burner[i]->GetState() == true)
+			m_burner[i]->Render();
+	}
+
 }
 
 

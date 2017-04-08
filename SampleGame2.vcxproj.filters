@@ -17,7 +17,11 @@
     <ClCompile Include="ImaseLib\FPSTimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Texture.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Game\Object\SidePress.cpp" />
+=======
+    <ClCompile Include="Game\Object\Burner.cpp" />
+>>>>>>> 112ef979d1e3f306fb3255ecf530f11f30df96fe
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADX2Le.h" />
@@ -38,7 +42,11 @@
     <ClInclude Include="ImaseLib\FPSTimer.h" />
     <ClInclude Include="MemoryLeakDetector.h" />
     <ClInclude Include="Texture.h" />
+<<<<<<< HEAD
     <ClInclude Include="Game\Object\SidePress.h" />
+=======
+    <ClInclude Include="Game\Object\Burner.h" />
+>>>>>>> 112ef979d1e3f306fb3255ecf530f11f30df96fe
   </ItemGroup>
   <ItemGroup>
     <None Include="myfile.spritefont" />

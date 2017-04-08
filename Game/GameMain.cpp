@@ -6,8 +6,6 @@
 //! @date   2017/04/07		
 //!
 //! @author â¡ì° ó≥ç∆
-//! @author ç≤ãvä‘èÆãP
-
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 #pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
 
@@ -47,8 +45,10 @@ GameBase* base;
 void InitializeGame(void)
 {
 
-	base =new Play();
+	base = new Title();
 
+	ADX2Le::Initialize("Nightmare.acf");
+	ADX2Le::LoadAcb("Resources\\Sounds\\CueSheet_0.acb");
 
 	g_NextScene = g_scene;
 }

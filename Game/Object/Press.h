@@ -16,6 +16,7 @@ class Press : public ObjectBase
 private:
 	static const int PRESS_GRP_W = 64;	//プレス機の幅
 	static const int PRESS_GRP_H = 288; //プレス機の高さ
+	static const int MOVE_COUNT = 120;	//移動カウント
 	int m_count;	//カウント
 public:
 	Press(int pos_x, int pos_y);	//コンストラクタ

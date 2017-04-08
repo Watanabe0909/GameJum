@@ -16,12 +16,16 @@
 class Title:public GameBase
 {
 private:
+	Texture *m_title_image;					//	タイトル画像
+	bool m_fade_flag;						//	フェード用フラグ				
+	DirectX::SimpleMath::Color color;		//	フェード用変数
+	float m_alfa;								//	画像の透明度用変数
 
 public:
-	Title();			//	コンストラクタ
-	~Title();			//	デストラクタ
-	void Update();		//	更新処理
-	void Render();		//	描画処理
+	Title();					//	コンストラクタ
+	~Title();					//	デストラクタ
+	void Update();				//	更新処理
+	void Render();				//	描画処理
 
 };
 

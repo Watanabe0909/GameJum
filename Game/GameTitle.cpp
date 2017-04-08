@@ -12,6 +12,7 @@
 #include "GameMain.h"
 #include "GameTitle.h"
 
+using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
 //----------------------------------------------------------------------
@@ -23,7 +24,12 @@ using namespace DirectX;
 //----------------------------------------------------------------------
 Title::Title()
 {
+	//	タイトル画像の初期化
+	m_title_image = new Texture(L"Resources\\Images\\title.png");
 
+	//	フェード用変数の初期化
+	m_fade_flag = false;
+	m_alfa = 1.0f;
 }
 
 //----------------------------------------------------------------------
@@ -53,11 +59,23 @@ void Title::Update()
 		g_init = 1;
 	}
 
+	//	Zキーを押したらプレイシーンへ
+	if (g_keyTracker->pressed.Z)
+	{
+		ADX2Le::Play(CRI_CUESHEET_1_SE);
+		m_fade_flag = true;
+	}
 
-	if (g_mouse.leftButton/*g_keyTracker->pressed.Z*/)
+	if (m_fade_flag == true)
+	{
+		m_alfa -= 0.01f;
+	}
+
+	if (m_alfa <= 0.0f)
 	{
 		g_NextScene = PLAY;
 	}
+
 }
 
 //----------------------------------------------------------------------
@@ -69,4 +87,6 @@ void Title::Update()
 //----------------------------------------------------------------------
 void Title::Render()
 {
+	//	画像の描画
+	g_spriteBatch->Draw(m_title_image->m_pTexture, Vector2(0, 0), Color(255.0f, 255.0f, 255.0f, m_alfa));
 }
