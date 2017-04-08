@@ -31,8 +31,13 @@
     <Filter Include="ゲーム\Stage">
       <UniqueIdentifier>{51ea2e9a-6dc0-4f15-88ca-8b27a3fb5cd3}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="ゲーム\Object">
       <UniqueIdentifier>{1efbc09b-918a-40e1-a1a9-ed696c04cca6}</UniqueIdentifier>
+=======
+    <Filter Include="ゲーム\Gimmick">
+      <UniqueIdentifier>{39540f28-9579-425e-afee-bfd4fa9f26e0}</UniqueIdentifier>
+>>>>>>> 592c7ff96f3a6235e62b19fc2ccbf2838140ca34
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,10 +84,14 @@
       <Filter>ゲーム\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Game\MoveBlock.cpp">
+<<<<<<< HEAD
       <Filter>ゲーム</Filter>
     </ClCompile>
     <ClCompile Include="Game\Object\Press.cpp">
       <Filter>ゲーム\Object</Filter>
+=======
+      <Filter>ゲーム\Gimmick</Filter>
+>>>>>>> 592c7ff96f3a6235e62b19fc2ccbf2838140ca34
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,10 +144,14 @@
       <Filter>ゲーム\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Game\MoveBlock.h">
+<<<<<<< HEAD
       <Filter>ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="Game\Object\Press.h">
       <Filter>ゲーム\Object</Filter>
+=======
+      <Filter>ゲーム\Gimmick</Filter>
+>>>>>>> 592c7ff96f3a6235e62b19fc2ccbf2838140ca34
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
