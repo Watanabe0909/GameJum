@@ -12,6 +12,7 @@
 #include "GameMain.h"
 #include "GameTitle.h"
 
+using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
 //----------------------------------------------------------------------
@@ -23,7 +24,8 @@ using namespace DirectX;
 //----------------------------------------------------------------------
 Title::Title()
 {
-
+	//	タイトル画像の初期化
+	m_title_image = new Texture(L"Resources\\Images\\title.png");
 }
 
 //----------------------------------------------------------------------
@@ -53,8 +55,8 @@ void Title::Update()
 		g_init = 1;
 	}
 
-
-	if (g_mouse.leftButton/*g_keyTracker->pressed.Z*/)
+	//	Zキーを押したらプレイシーンへ
+	if (g_keyTracker->pressed.Z)
 	{
 		g_NextScene = PLAY;
 	}
@@ -69,4 +71,6 @@ void Title::Update()
 //----------------------------------------------------------------------
 void Title::Render()
 {
+	//	画像の描画
+	g_spriteBatch->Draw(m_title_image->m_pTexture, Vector2(0, 0));
 }
