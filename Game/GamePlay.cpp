@@ -77,17 +77,16 @@ void Play::Update()
 	if (g_init == 0)
 	{
 
-	//ステージの更新
-	m_stage->Update();
-
-	//上下に動くギミックの更新
-	m_moveblock->Update();
 
 	}
-
-	//	ポーズフラグがfalseなら下の処理を行う
-	if (m_pause_flag == false)
+	//ポーズ画面
+	if (!m_pause_flag)
 	{
+		//ステージの更新
+		m_stage->Update();
+
+		//上下に動くギミックの更新
+		m_moveblock->Update();
 		if (g_keyTracker->pressed.X)
 		{
 			m_pause_flag = true;
@@ -95,7 +94,7 @@ void Play::Update()
 	}
 
 	//	ポーズフラグがtrueなら下の処理を行う
-	if (m_pause_flag == true)
+	if (m_pause_flag)
 	{
 		//	下キーが押されたら選択を1進める
 		if (g_keyTracker->pressed.Down)
@@ -129,7 +128,7 @@ void Play::Update()
 			//	選択がRETURNの時ならゲームへ戻る
 			if (m_pause_select == RETURN)
 			{
-
+				m_pause_flag = false;
 			}
 
 			//	選択がRETURN_TITLEならタイトルへ戻る
