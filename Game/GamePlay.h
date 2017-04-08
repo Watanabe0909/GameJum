@@ -13,11 +13,13 @@
 //	ヘッダファイルのインクルード
 #include "GameBase.h"
 #include "Stage\Stage.h"
+#include "Object\Press.h"
 //クラス
 class Play:public GameBase
 {
 private:
-	Stage m_stage;
+	Stage* m_stage;
+	//Press* m_press;
 public:
 	Play();				//	コンストラクタ
 	~Play();			//	デストラクタ

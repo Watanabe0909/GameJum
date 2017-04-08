@@ -23,9 +23,27 @@ using namespace DirectX;
 //! @param[in] なし
 //----------------------------------------------------------------------
 Stage::Stage()
+	:m_press_count(0)	//カウント
 {
 	m_map_image = new Texture(L"Resources\\Images\\PongImage.png");		//マップの画像
 	ImportData("Resources\\map\\map.csv");	//マップの読み込み
+	//オブジェクト用
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		for (int j = 0; j < MAP_WIDTH; j++)
+		{
+			switch (m_map[i][j])
+			{
+				//プレス機の生成
+			case PRESS:
+				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE);
+				m_press_count++;
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }
 
 //----------------------------------------------------------------------
@@ -33,7 +51,13 @@ Stage::Stage()
 //----------------------------------------------------------------------
 Stage::~Stage()
 {
-	delete m_map_image;
+	delete m_map_image;		//画像
+	m_map_image = nullptr;
+	for (int i = 0; i < m_press_count; i++)
+	{
+		delete m_press[i];	//プレス機
+		m_press[i] = nullptr;
+	}
 }
 
 //----------------------------------------------------------------------
@@ -67,16 +91,37 @@ void Stage::DrawStage()
 				//水
 			case WATER:
 				break;
+				//プレス機
+			case PRESS:
+				for (int k = 0; k < m_press_count; k++)
+				m_press[k]->Render();
+				break;
 			default:
 				break;
 			}
 			{
 			}
-			//半分の壁の描画
 
 		}
 	}
 
+}
+
+//----------------------------------------------------------------------
+//! @brief アップデート
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Stage::Update()
+{
+	//プレス機
+	for (int i = 0; i < m_press_count; i++)
+	{
+		m_press[i]->Update();	//座標変更
+		m_press[i]->Move();		//移動
+	}
 }
 
 
