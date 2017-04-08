@@ -70,7 +70,6 @@ void Play::Update()
 	m_stage->Update();
 =======
 
-	m_moveblock->Move_up_down();
 
 	m_moveblock->Update();
 
