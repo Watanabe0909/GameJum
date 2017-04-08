@@ -53,13 +53,11 @@ void Over::Update()
 	{
 		g_init = 1;
 
-		g_TimeCnt = 0;
-
 
 	}
 
-	g_TimeCnt++;
-	if (g_TimeCnt > 120)
+	//	Zキーでタイトルへ
+	if (g_keyTracker->pressed.Z)
 	{
 		g_NextScene = TITLE;
 	}
