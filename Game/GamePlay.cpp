@@ -29,6 +29,12 @@ Play::Play()
 {
 	m_stage = new Stage;	//ステージ
 	m_moveblock = new Moveblock;	//上下に動くギミック
+	
+	m_sidepress[0] = new SidePress(32 * 8, 32 * 8);
+	m_sidepress[1] = new SidePress(32 * 11, 32 * 8);
+	
+	m_sidepress[0]->SetState(0);
+	m_sidepress[1]->SetState(1);
 }
 
 //----------------------------------------------------------------------
@@ -44,7 +50,11 @@ Play::~Play()
 	m_stage = nullptr;
 	delete m_moveblock;	//上下に動くギミック
 	m_moveblock = nullptr;
-	
+	for (int i = 0; i < 2; i++)
+	{
+		delete m_sidepress[i];
+		m_sidepress[i] = nullptr;
+	}
 }
 
 //----------------------------------------------------------------------
@@ -67,6 +77,11 @@ void Play::Update()
 	//上下に動くギミックの更新
 	m_moveblock->Update();
 
+	for (int i = 0; i < 2; i++)
+	{
+		m_sidepress[i]->Update();
+		m_sidepress[i]->Move();
+	}
 }
 
 //----------------------------------------------------------------------
@@ -80,7 +95,13 @@ void Play::Render()
 {
 	//ステージの描画
 	m_stage->DrawStage();
+
 	//上下に動くギミックの描画
 	m_moveblock->Render();
+
+	for (int i = 0; i < 2; i++)
+	{
+		m_sidepress[i]->Render();
+	}
 }
 

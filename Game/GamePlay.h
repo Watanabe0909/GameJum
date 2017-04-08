@@ -14,6 +14,7 @@
 #include "GameBase.h"
 #include "Stage\Stage.h"
 #include "Object\Press.h"
+#include "Object\SidePress.h"
 #include "MoveBlock.h"
 //クラス
 class Play:public GameBase
@@ -21,6 +22,7 @@ class Play:public GameBase
 private:
 	Stage* m_stage;
 	Moveblock* m_moveblock;
+	SidePress* m_sidepress[2];
 public:
 	Play();				//	コンストラクタ
 	~Play();			//	デストラクタ
