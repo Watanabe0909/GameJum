@@ -30,7 +30,7 @@ Play::Play()
 	m_stage = new Stage;	//ステージ
 	m_moveblock = new Moveblock;	//上下に動くギミック
 	
-	m_sidepress[0] = new SidePress(32 * 8, 32 * 8);
+	m_sidepress[0] = new SidePress(32 * 8, 32 * 8);	
 	m_sidepress[1] = new SidePress(32 * 11, 32 * 8);
 	
 	m_sidepress[0]->SetState(0);

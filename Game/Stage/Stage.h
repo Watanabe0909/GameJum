@@ -14,6 +14,7 @@
 #include <string>
 #include "..\ObjectBase.h"
 #include "..\Object\Press.h"
+#include "..\Object\SidePress.h"
 //クラスの呼び出し
 class Texture;
 
@@ -26,6 +27,7 @@ enum Map
 	VERTICALWALL,	//縦長の壁
 	WATER,			//水
 	PRESS,			//プレス機
+	
 };
 
 class Stage 

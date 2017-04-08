@@ -96,6 +96,7 @@
     <ClCompile Include="Game\MoveBlock.cpp" />
     <ClCompile Include="Game\ObjectBase.cpp" />
     <ClCompile Include="Game\Object\Press.cpp" />
+    <ClCompile Include="Game\Object\SidePress.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="ImaseLib\FPSTimer.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Game\MoveBlock.h" />
     <ClInclude Include="Game\ObjectBase.h" />
     <ClInclude Include="Game\Object\Press.h" />
+    <ClInclude Include="Game\Object\SidePress.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="ImaseLib\FPSTimer.h" />
