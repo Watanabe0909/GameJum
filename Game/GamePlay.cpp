@@ -96,6 +96,8 @@ void Play::Update()
 		//	下キーが押されたら選択を1進める
 		if (g_keyTracker->pressed.Down)
 		{
+			//	SEの再生
+			ADX2Le::Play(CRI_CUESHEET_1_SE);
 			//	選択用変数に1を足す
 			m_pause_select++;
 
@@ -109,6 +111,7 @@ void Play::Update()
 		//	上キーが押されたら選択を1戻す
 		if (g_keyTracker->pressed.Up)
 		{
+			ADX2Le::Play(CRI_CUESHEET_1_SE);
 			//	選択用変数から1を引く
 			m_pause_select--;
 
@@ -122,6 +125,7 @@ void Play::Update()
 		//	Zキーが押されたら選択によって次に進む
 		if (g_keyTracker->pressed.Z)
 		{
+			ADX2Le::Play(CRI_CUESHEET_1_SE);
 			//	選択がRETURNの時ならゲームへ戻る
 			if (m_pause_select == RETURN)
 			{
