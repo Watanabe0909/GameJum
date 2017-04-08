@@ -31,9 +31,6 @@ Play::Play()
 	m_stage = new Stage;	//ステージ
 	m_moveblock = new Moveblock;	//上下に動くギミック
 
-	//	背景画像
-	m_back_image = new Texture(L"Resources\\Images\\back.png");
-
 	//	ポーズ画像
 	m_pause_image = new Texture(L"Resources\\Images\\pause.png");
 

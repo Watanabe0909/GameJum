@@ -58,6 +58,7 @@ void Title::Update()
 	//	Zキーを押したらプレイシーンへ
 	if (g_keyTracker->pressed.Z)
 	{
+		ADX2Le::Play(CRI_CUESHEET_1_SE);
 		g_NextScene = PLAY;
 	}
 }

@@ -52,8 +52,8 @@ void Clear::Update()
 		g_TimeCnt = 0;
 	}
 
-
-	if (g_mouse.leftButton)
+	//	Zキーでタイトルへ
+	if (g_keyTracker->pressed.Z)
 	{ 
 		g_NextScene = TITLE;
 	}
