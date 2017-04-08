@@ -10,7 +10,6 @@
 
 //ヘッダファイルの読込
 #include "MoveBlock.h"
-#include "GameMain.h"
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -31,9 +30,9 @@ Moveblock::Moveblock()
 	m_handle = g_gimmickimage;
 	m_grp_x = 0;
 	m_grp_y = 0;
-	m_grp_w = m_block_size * 3;
-	m_grp_h = m_block_size * 3;
-	m_pos_x = m_block_size * 10;
+	m_grp_w = M_BLOCK_GRP_W;
+	m_grp_h = M_BLOCK_GRP_H;
+	m_pos_x = M_BLOCK_POS_X;
 	m_pos_y = 0;
 }
 
@@ -52,7 +51,7 @@ Moveblock::~Moveblock()
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Moveblock::Move_up_down()
+void Moveblock::MoveUpDown()
 {
 	if (m_pos_y_min == m_pos_y)
 	{
@@ -65,14 +64,3 @@ void Moveblock::Move_up_down()
 }
 
 
-//----------------------------------------------------------------------
-//! @brief ギミックの左右移動
-//!
-//! @param[in] なし
-//!
-//! @return なし
-//----------------------------------------------------------------------
-void Moveblock::Move_right_left()
-{
-
-}
