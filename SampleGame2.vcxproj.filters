@@ -31,6 +31,9 @@
     <Filter Include="ゲーム\Stage">
       <UniqueIdentifier>{51ea2e9a-6dc0-4f15-88ca-8b27a3fb5cd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲーム\Gimmick">
+      <UniqueIdentifier>{39540f28-9579-425e-afee-bfd4fa9f26e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImaseLib\FPSTimer.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="Game\Stage\Stage.cpp">
       <Filter>ゲーム\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MoveBlock.cpp">
+      <Filter>ゲーム\Gimmick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Game\Stage\Stage.h">
       <Filter>ゲーム\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MoveBlock.h">
+      <Filter>ゲーム\Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

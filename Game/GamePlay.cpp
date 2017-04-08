@@ -27,7 +27,7 @@ using namespace std;
 //----------------------------------------------------------------------
 Play::Play()
 {
-
+	m_moveblock = new Moveblock;
 }
 
 //----------------------------------------------------------------------
@@ -39,7 +39,7 @@ Play::Play()
 //----------------------------------------------------------------------
 Play::~Play()
 {
-
+	delete m_moveblock;
 }
 
 //----------------------------------------------------------------------
@@ -57,6 +57,9 @@ void Play::Update()
 	{
 	}	
 
+	m_moveblock->Move_up_down();
+
+	m_moveblock->Update();
 
 }
 
@@ -70,5 +73,6 @@ void Play::Update()
 void Play::Render()
 {
 	m_stage.DrawStage();
+	m_moveblock->Render();
 }
 
