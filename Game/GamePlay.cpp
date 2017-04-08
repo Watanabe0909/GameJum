@@ -30,13 +30,6 @@ Play::Play()
 
 	m_stage = new Stage;	//ステージ
 	m_moveblock = new Moveblock;	//上下に動くギミック
-	
-	m_sidepress[0] = new SidePress(32 * 8, 32 * 8);		//横のプレス機、ステージと合わせた後消してよい
-	m_sidepress[1] = new SidePress(32 * 11, 32 * 8);	//横のプレス機、ステージと合わせた後消してよい
-	
-	m_sidepress[0]->SetState(0);						//横のプレス機のステイト設定、ステージと合わせた後消してよい
-	m_sidepress[1]->SetState(1);						//横のプレス機のステイト設定、ステージと合わせた後消してよい
-
 
 	//	ポーズ画像
 	m_pause_image = new Texture(L"Resources\\Images\\pause.png");
@@ -67,12 +60,6 @@ Play::~Play()
 	delete m_moveblock;	//上下に動くギミック
 	m_moveblock = nullptr;
 
-	//ステージと合わせた後消してよい
-	for (int i = 0; i < 2; i++)		//横移動のプレス機
-	{
-		delete m_sidepress[i];
-		m_sidepress[i] = nullptr;
-	}
 }
 
 //----------------------------------------------------------------------
@@ -84,82 +71,70 @@ Play::~Play()
 //----------------------------------------------------------------------
 void Play::Update()
 {
-	//シーンの最初に一回だけ行う初期化処理
-	if (g_init == 0)
+
+	//プレイ画面
+	if (!m_pause_flag)
 	{
+		//ステージの更新
+		m_stage->Update();
 
-		//ステージと合わせた後消してよい
-		for (int i = 0; i < 2; i++)
+		//上下に動くギミックの更新
+		m_moveblock->Update();
+		if (g_keyTracker->pressed.X)
 		{
-			m_sidepress[i]->Update();	//横移動のプレス機の更新
-			m_sidepress[i]->Move();		//横移動のプレス機の移動処理
+			m_pause_flag = true;
+		}
+	}
+
+	//	ポーズフラグがtrueなら下の処理を行う
+	if (m_pause_flag)
+	{
+		//	下キーが押されたら選択を1進める
+		if (g_keyTracker->pressed.Down)
+		{
+			//	SEの再生
+			ADX2Le::Play(CRI_CUESHEET_1_SE);
+			//	選択用変数に1を足す
+			m_pause_select++;
+
+			//	選択用変数が選択肢を超えたら上に戻る
+			if (m_pause_select > RETURN_TITLE)
+			{
+				m_pause_select = RETURN;
+			}
 		}
 
-
-		//ポーズ画面
-		if (!m_pause_flag)
+		//	上キーが押されたら選択を1戻す
+		if (g_keyTracker->pressed.Up)
 		{
-			//ステージの更新
-			m_stage->Update();
+			ADX2Le::Play(CRI_CUESHEET_1_SE);
+			//	選択用変数から1を引く
+			m_pause_select--;
 
-			//上下に動くギミックの更新
-			m_moveblock->Update();
-			if (g_keyTracker->pressed.X)
+			//	選択用変数が選択肢を超えたら下に戻る
+			if (m_pause_select < RETURN)
 			{
-				m_pause_flag = true;
+				m_pause_select = RETURN_TITLE;
 			}
 		}
 
-		//	ポーズフラグがtrueなら下の処理を行う
-		if (m_pause_flag)
+		//	Zキーが押されたら選択によって次に進む
+		if (g_keyTracker->pressed.Z)
 		{
-			//	下キーが押されたら選択を1進める
-			if (g_keyTracker->pressed.Down)
+			ADX2Le::Play(CRI_CUESHEET_1_SE);
+			//	選択がRETURNの時ならゲームへ戻る
+			if (m_pause_select == RETURN)
 			{
-				//	SEの再生
-				ADX2Le::Play(CRI_CUESHEET_1_SE);
-				//	選択用変数に1を足す
-				m_pause_select++;
-
-				//	選択用変数が選択肢を超えたら上に戻る
-				if (m_pause_select > RETURN_TITLE)
-				{
-					m_pause_select = RETURN;
-				}
+				m_pause_flag = false;
 			}
 
-			//	上キーが押されたら選択を1戻す
-			if (g_keyTracker->pressed.Up)
+			//	選択がRETURN_TITLEならタイトルへ戻る
+			if (m_pause_select == RETURN_TITLE)
 			{
-				ADX2Le::Play(CRI_CUESHEET_1_SE);
-				//	選択用変数から1を引く
-				m_pause_select--;
-
-				//	選択用変数が選択肢を超えたら下に戻る
-				if (m_pause_select < RETURN)
-				{
-					m_pause_select = RETURN_TITLE;
-				}
+				g_NextScene = TITLE;
 			}
-
-			//	Zキーが押されたら選択によって次に進む
-			if (g_keyTracker->pressed.Z)
-			{
-				ADX2Le::Play(CRI_CUESHEET_1_SE);
-				//	選択がRETURNの時ならゲームへ戻る
-				if (m_pause_select == RETURN)
-				{
-					m_pause_flag = false;
-				}
-
-				//	選択がRETURN_TITLEならタイトルへ戻る
-				if (m_pause_select == RETURN_TITLE)
-				{
-					g_NextScene = TITLE;
-				}
-			}
-
 		}
+
 	}
 }
 
@@ -179,13 +154,6 @@ void Play::Render()
 
 	//上下に動くギミックの描画
 	m_moveblock->Render();
-
-	//ステージと合わせた後消してよい
-	for (int i = 0; i < 2; i++)
-	{
-		m_sidepress[i]->Render();	//横移動のプレス機の描画処理
-	}
-
 
 
 	//オブジェクトの描画

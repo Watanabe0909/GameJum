@@ -16,6 +16,7 @@
 #include "..\Object\Press.h"
 #include "..\Object\SidePress.h"
 #include "..\Object\Burner.h"
+#include "..\Object\SidePress.h"
 //クラスの呼び出し
 class Texture;
 
@@ -29,6 +30,7 @@ enum Map
 	VERTICALWALL,	//縦長の壁
 	WATER,			//水
 	PRESS,			//プレス機
+	SIDEPRESS,		//横のプレス機
 	BURNER,			//バーナー
 };
 
@@ -39,13 +41,15 @@ private:
 	static const int MAP_HEIGHT = 15;	//マップの縦幅
 	static const int MAX_TIP = 300;		//マップチップの数
 	static const int CHIPSIZE = 32;		//マップチップの大きさ
-	static const int MAX_PRESS_NUM = 3;	//プレス機の数
+	static const int MAX_PRESS_NUM = 4;	//プレス機の数
 	int m_map[MAP_HEIGHT][MAP_WIDTH];	//マップ
 	Texture* m_map_image;				//マップの画像
 	Press* m_press[MAX_PRESS_NUM];		//プレス機
 	Burner* m_burner[MAX_PRESS_NUM];	//バーナー
+	SidePress* m_side_press[MAX_PRESS_NUM];//横のプレス機
 	int m_press_count;					//プレス機のカウント
 	int m_burner_count;					//バーナーのカウント
+	int m_side_press_count;					//横のプレス機のカウント
 	void ImportData(std::string filename);	//csvファイルからの読み込み
 public:
 	Stage();			//コンストラクタ

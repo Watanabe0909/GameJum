@@ -25,6 +25,7 @@ using namespace DirectX;
 Stage::Stage()
 	:m_press_count(0)	//プレス機のカウント
 	,m_burner_count(0)	//バーナーのカウント
+	,m_side_press_count(0)//横のプレス機のカウント
 {
 	m_map_image = new Texture(L"Resources\\Images\\MapChip.png");		//マップの画像
 	ImportData("Resources\\map\\map.csv");	//マップの読み込み
@@ -39,6 +40,11 @@ Stage::Stage()
 			case PRESS:
 				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE);
 				m_press_count++;
+				break;
+			case SIDEPRESS:
+				m_side_press[m_side_press_count] = new SidePress(j * CHIPSIZE, i* CHIPSIZE);
+				m_side_press[m_side_press_count]->SetState(m_side_press_count);
+				m_side_press_count++;
 				break;
 				//バーナーの生成
 			case BURNER:
@@ -63,6 +69,11 @@ Stage::~Stage()
 	{
 		delete m_press[i];	//プレス機
 		m_press[i] = nullptr;
+	}
+	for (int i = 0; i < m_side_press_count; i++)
+	{
+		delete m_side_press[i];	//横のプレス機
+		m_side_press[i] = nullptr;
 	}
 	for (int i = 0; i < m_burner_count; i++)
 	{
@@ -111,6 +122,10 @@ void Stage::DrawStage()
 			case PRESS:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
+				//横のプレス機
+			case SIDEPRESS:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
 				//バーナー
 			case BURNER:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
@@ -142,7 +157,13 @@ void Stage::Update()
 	//バーナー
 	for (int i = 0; i < m_burner_count; i++)
 	{
-		m_burner[i]->Ignition();
+		m_burner[i]->Ignition();	//火をつける
+	}
+	//横のプレス機
+	for (int i = 0; i < m_side_press_count; i++)
+	{
+		m_side_press[i]->Update();	//座標変更
+		m_side_press[i]->Move();	//移動
 	}
 }
 
@@ -158,6 +179,9 @@ void Stage::ObjectDraw()
 	//プレス機
 	for (int i = 0; i < m_press_count; i++)
 		m_press[i]->Render();
+	for (int i = 0; i < m_side_press_count; i++)
+		m_side_press[i]->Render();
+
 	//バーナー
 	for (int i = 0; i < m_burner_count; i++)
 	{
@@ -165,7 +189,6 @@ void Stage::ObjectDraw()
 		if (m_burner[i]->GetState() == true)
 			m_burner[i]->Render();
 	}
-
 }
 
 

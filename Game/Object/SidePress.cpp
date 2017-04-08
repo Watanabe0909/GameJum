@@ -50,25 +50,25 @@ void SidePress::Move()
 	if (m_state % 2 == 0) //ステイトが偶数なら右に移動
 	{
 		//下移動
-		if (m_count < 16)
+		if (m_count < CHANGE_MOVE_COUNT / 2)
 			m_spd_x = 1;
 		//上移動
-		if (m_count > 16)
+		if (m_count > CHANGE_MOVE_COUNT / 2)
 			m_spd_x = -1;
 		//reset
-		if (m_count == 32)
+		if (m_count == CHANGE_MOVE_COUNT)
 			m_count = 0;
 	}
 	else				  //ステイトが奇数なら左に移動
 	{
 		//下移動
-		if (m_count < 16)
+		if (m_count < CHANGE_MOVE_COUNT / 2)
 			m_spd_x = -1;
 		//上移動
-		if (m_count > 16)
+		if (m_count > CHANGE_MOVE_COUNT / 2)
 			m_spd_x = 1;
 		//reset
-		if (m_count == 32)
+		if (m_count == CHANGE_MOVE_COUNT)
 			m_count = 0;
 	}
 	
