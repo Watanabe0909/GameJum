@@ -21,7 +21,7 @@ private:
 	bool m_fade_flag;						//	フェード用フラグ				
 	DirectX::SimpleMath::Color color;		//	フェード用変数
 	float m_alfa;							//	画像の透明度用変数
-	int m_count;								//	カウント
+	int m_count;							//	カウント
 
 public:
 	Title();					//	コンストラクタ
