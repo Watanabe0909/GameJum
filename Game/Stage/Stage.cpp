@@ -54,13 +54,15 @@ Stage::Stage()
 				break;
 				//プレイヤーの生成
 			case PLAYER:
-				m_player = new Player(j * CHIPSIZE, i*CHIPSIZE);
+				m_player = new Player(j * CHIPSIZE, i * CHIPSIZE);
 				break;
 			default:
 				break;
 			}
 		}
 	}
+	//カメラ
+	m_camera = new Camera();
 }
 
 //----------------------------------------------------------------------
@@ -87,6 +89,8 @@ Stage::~Stage()
 	}
 	delete m_player;	//プレイヤー
 	m_player = nullptr;
+	delete m_camera;	//カメラ
+	m_camera = nullptr;
 }
 
 //----------------------------------------------------------------------
@@ -176,12 +180,15 @@ void Stage::Update()
 		m_side_press[i]->Update();	//座標変更
 		m_side_press[i]->Move();	//移動
 	}
+	//カメラ
+	m_camera->Coordinate(m_player->GetPosX(),  m_player->GetGrpW());	//座標変更
+	m_camera->CameraMaxPos();	//スクロールの限界
 	//プレイヤー
 	m_player->Move();	//移動
 	m_player->Update(); //座標変更
-	mapdownDecison();	//マップチップとの下の当たり判定
-	mapsideDecison();	//マップチップとの横の当たり判定
-	mapjumpDecison();	//マップチップとの上の当たり判定
+	MapDownDecison();	//マップチップとの下の当たり判定
+	MapSideDecison();	//マップチップとの横の当たり判定
+	MapJumpDecison();	//マップチップとの上の当たり判定
 }
 
 //----------------------------------------------------------------------
@@ -195,20 +202,21 @@ void Stage::ObjectDraw()
 {
 	//プレス機
 	for (int i = 0; i < m_press_count; i++)
-		m_press[i]->Render();
+		m_press[i]->Render(m_camera->GetPosX());
 	//横のプレス機
 	for (int i = 0; i < m_side_press_count; i++)
-		m_side_press[i]->Render();
+		m_side_press[i]->Render(m_camera->GetPosX());
 
 	//バーナー
 	for (int i = 0; i < m_burner_count; i++)
 	{
 		//バーナーが生きている時
 		if (m_burner[i]->GetState() == true)
-			m_burner[i]->Render();
+			m_burner[i]->Render(m_camera->GetPosX());
 	}
 	//プレイヤー
-	m_player->Render();
+	m_player->Render(m_camera->GetPosX());
+
 }
 
 
@@ -260,7 +268,8 @@ void Stage::ImportData(string filename)
 void Stage::DrawSprite(int grp_x, int grp_y, int grp_w, int grp_h, int i,int j)
 {
 	RECT rect = { grp_x,grp_y,grp_w,grp_h };
-	g_spriteBatch->Draw(m_map_image->m_pTexture, Vector2(CHIPSIZE * j, CHIPSIZE * i),
+	//スクロールに対応
+	g_spriteBatch->Draw(m_map_image->m_pTexture, Vector2(CHIPSIZE * j - (m_camera->GetPosX() - SCREEN_WIDTH / 2), CHIPSIZE * i),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
 }
@@ -273,7 +282,7 @@ void Stage::DrawSprite(int grp_x, int grp_y, int grp_w, int grp_h, int i,int j)
 //! @return なし
 //----------------------------------------------------------------------
 
-void Stage::mapdownDecison()
+void Stage::MapDownDecison()
 {
 	int map_x;
 	int map_y;
@@ -320,7 +329,7 @@ void Stage::mapdownDecison()
 //! @return なし
 //----------------------------------------------------------------------
 
-void Stage::mapsideDecison()
+void Stage::MapSideDecison()
 {
 	int map_x;
 	int map_y;
@@ -363,7 +372,7 @@ void Stage::mapsideDecison()
 //! @return なし
 //----------------------------------------------------------------------
 
-void Stage::mapjumpDecison()
+void Stage::MapJumpDecison()
 {
 	int map_x;
 	int map_y;

@@ -88,6 +88,7 @@
     <ClCompile Include="ADX2Le.cpp" />
     <ClCompile Include="Direct3D.cpp" />
     <ClCompile Include="DirectXTK.cpp" />
+    <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Game\GameClear.cpp" />
     <ClCompile Include="Game\GameMain.cpp" />
     <ClCompile Include="Game\GameOver.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="ADX2Le.h" />
     <ClInclude Include="Direct3D.h" />
     <ClInclude Include="DirectXTK.h" />
+    <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Game\CueSheet_0.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\GameClear.h" />

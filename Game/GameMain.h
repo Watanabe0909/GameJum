@@ -33,8 +33,8 @@
 #define GAME_TITLE "NightMare"
 
 // ƒQ[ƒ€‰æ–Ê
-#define SCREEN_WIDTH  640    // •[pixel]
-#define SCREEN_HEIGHT 480    // ‚‚³[pixel]
+//#define SCREEN_WIDTH  640    // •[pixel]
+//#define SCREEN_HEIGHT 480    // ‚‚³[pixel]
 
 
 //@—ñ‹“Œ^éŒ¾

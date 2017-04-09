@@ -29,7 +29,6 @@ Play::Play()
 {
 
 	m_stage = new Stage;	//ステージ
-	m_moveblock = new Moveblock;	//上下に動くギミック
 
 	//	ポーズ画像
 	m_pause_image = new Texture(L"Resources\\Images\\pause.png");
@@ -57,8 +56,6 @@ Play::~Play()
 {
 	delete m_stage;	//ステージ
 	m_stage = nullptr;
-	delete m_moveblock;	//上下に動くギミック
-	m_moveblock = nullptr;
 
 }
 
@@ -78,8 +75,6 @@ void Play::Update()
 		//ステージの更新
 		m_stage->Update();
 
-		//上下に動くギミックの更新
-		m_moveblock->Update();
 		if (g_keyTracker->pressed.X)
 		{
 			m_pause_flag = true;
@@ -150,10 +145,6 @@ void Play::Render()
 
 	//ステージの描画
 	m_stage->DrawStage();
-
-
-	//上下に動くギミックの描画
-	m_moveblock->Render();
 
 
 	//オブジェクトの描画

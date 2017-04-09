@@ -8,6 +8,9 @@
 class ObjectBase
 {
 protected:
+	static const int SCREEN_WIDTH = 640;	//画面の幅
+	static const int SCREEN_HEIGHT = 480;	//画面の高さ
+	static const int CHIPSIZEx5 = 160;		//マップチップ5つ分
 	Texture *m_handle;	//グラフィックハンドル 
 	int m_grp_x;			//元画像のｘ座標 
 	int m_grp_y;			//元画像のｙ座標 
@@ -40,4 +43,6 @@ public:
 	int GetState();					//	オブジェクトのステートを取得
 	void Update();					//	更新処理
 	void Render();					//	描画処理
+	void ObjectBase::Render(int camera_pos_x);//オブジェクトの描画処理(スクロールに対応)
+
 };

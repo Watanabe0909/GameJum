@@ -131,3 +131,17 @@ void ObjectBase::Render()
 	g_spriteBatch->Draw(m_handle->m_pTexture, Vector2(m_pos_x, m_pos_y),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 }
+
+//オブジェクトの描画処理(スクロールに対応)
+void ObjectBase::Render(int camera_pos_x)
+{
+	//	画像の短形用変数
+	RECT rect;
+
+	rect = { m_grp_x, m_grp_y, m_grp_x + m_grp_w, m_grp_y + m_grp_h };
+
+	g_spriteBatch->Draw(m_handle->m_pTexture, Vector2(m_pos_x - (camera_pos_x - SCREEN_WIDTH / 2),
+		m_pos_y),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+
+}

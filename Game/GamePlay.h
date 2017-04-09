@@ -22,8 +22,7 @@ class Play:public GameBase
 {
 private:
 
-	Stage* m_stage;
-	Moveblock* m_moveblock;
+	Stage* m_stage;				//ステージ
 
 	Texture *m_pause_image;		//	ポーズ時画像
 	Texture *m_line_image;		//	選択用線の画像

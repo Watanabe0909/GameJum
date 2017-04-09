@@ -1,81 +1,58 @@
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-//! @file   Player.cpp
+//! @file   Camera.h
 //!
-//! @brief  プレイヤー処理のソースファイル
+//! @brief  カメラ処理のソースファイル
 //!
 //! @date   2017/04/09
 //!
 //! @author 佐久間尚輝
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 
-#include "Player.h"
+#include "Camera.h"
 
 //----------------------------------------------------------------------
 //! @brief コンストラクタ
 //!
 //! @param[in] なし
 //----------------------------------------------------------------------
-Player::Player(int pos_x, int pos_y)
+Camera::Camera()
 {
-	m_handle = new Texture(L"Resources\\Images\\PongImage.png");	//画像
-	m_pos_x = pos_x;	//x座標
-	m_pos_y = pos_y;	//y座標
-	m_grp_x = 0;		//元画像のgrp_x
-	m_grp_y = 0;		//元画像のgrp_y
-	m_grp_w = PLAYER_GRP;		//元画像のgrp_w
-	m_grp_h = PLAYER_GRP;		//元画像のgrp_h
+	//m_pos_x = SCREEN_WIDTH / 2;
+	//m_pos_y = SCREEN_HEIGHT / 2;
+	m_pos_x = 0;	//x座標
+	m_pos_y = 0;	//y座標
 }
-
 //----------------------------------------------------------------------
 //! @brief デストラクタ
 //----------------------------------------------------------------------
-Player::~Player()
+Camera::~Camera()
 {
-	delete m_handle;
-	m_handle = nullptr;
+
 }
 
 //----------------------------------------------------------------------
-//! @brief 移動
+//! @brief カメラの座標変更
+//!
+//! @param[in] x座標、幅
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Camera::Coordinate(int pos_x, int grp_w)
+{
+	m_pos_x = pos_x + (grp_w / 2);	
+}
+
+//----------------------------------------------------------------------
+//! @brief スクロールの限界
 //!
 //! @param[in] なし
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Player::Move()
+void Camera::CameraMaxPos()
 {
-	//オートで進まないように
-	m_spd_x = 0;
-	//右移動
-	if (g_key.Right)
-		m_spd_x = PLAYER_MOVE_POW;
-	//左移動
-	if (g_key.Left)
-		m_spd_x = -PLAYER_MOVE_POW;
-	//ジャンプ
-	if (g_keyTracker->pressed.Up && !m_jump_flag)
+	if (m_pos_x < SCREEN_WIDTH / 2)
 	{
-		m_spd_y = PLAYER_JUMP_POW;
-		m_jump_flag = true;
-	}
-	//重力
-	m_spd_y += PLAYER_GRAVITY;
-	//エリア外に行かないようにする
-	if (m_pos_x <= 0)
-	{
-		m_pos_x = 0;
+		m_pos_x = SCREEN_WIDTH / 2;
 	}
 }
-
-//----------------------------------------------------------------------
-//! @brief 地面についている
-//!
-//! @param[in] なし
-//!
-//! @return なし
-//----------------------------------------------------------------------
-void Player::Ground()
-{
-	m_jump_flag = false;
-}
-
