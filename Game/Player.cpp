@@ -79,3 +79,33 @@ void Player::Ground()
 	m_jump_flag = false;
 }
 
+//----------------------------------------------------------------------
+//! @brief ƒvƒŒƒCƒ„[‚Ì‘å‚«‚³‚ð•Ï‚¦‚é
+//!
+//! @param[in] ‚È‚µ
+//!
+//! @return ‚È‚µ
+//----------------------------------------------------------------------
+void Player::ChangePlayer()
+{
+	if (m_grp_h == PLAYER_GRP && g_keyTracker->pressed.A)
+	{
+		m_grp_h = PLAYER_GRP / 2;
+		m_grp_w = PLAYER_GRP;
+	}
+	else if (m_grp_h == PLAYER_GRP / 2 && g_keyTracker->pressed.A)
+	{
+		m_grp_h = PLAYER_GRP;
+	}
+	if (m_grp_w == PLAYER_GRP && g_keyTracker->pressed.S)
+	{
+		m_grp_w = PLAYER_GRP / 2;
+		m_grp_h = PLAYER_GRP;
+	}
+	else if (m_grp_w == PLAYER_GRP / 2 && g_keyTracker->pressed.S)
+	{
+		m_grp_w = PLAYER_GRP;
+	}
+
+}
+

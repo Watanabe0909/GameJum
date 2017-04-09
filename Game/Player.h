@@ -24,4 +24,5 @@ public:
 	~Player();			//デストラクタ
 	void Move();		//移動
 	void Ground();		//地面についている
+	void ChangePlayer();//プレイヤーの大きさを変える
 };

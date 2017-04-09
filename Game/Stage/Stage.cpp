@@ -17,6 +17,9 @@ using namespace std;
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
+//定数
+const float Stage::HALF_UP = 0.5f;
+
 //----------------------------------------------------------------------
 //! @brief コンストラクタ
 //!
@@ -186,6 +189,7 @@ void Stage::Update()
 	//プレイヤー
 	m_player->Move();	//移動
 	m_player->Update(); //座標変更
+	m_player->ChangePlayer();
 	MapDownDecison();	//マップチップとの下の当たり判定
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
@@ -296,10 +300,41 @@ void Stage::MapDownDecison()
 		{
 			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
 			{
-				m_player->SetPosY((map_y - 1)*CHIPSIZE);
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+					m_player->SetPosY((map_y - 1)*CHIPSIZE);
+				//プレイヤーが横長の状態
+				else if (PLAYER_HORIZONTAL)
+					m_player->SetPosY(((float)map_y - HALF_UP)*CHIPSIZE);
+				//プレイヤーが縦長の状態
+				else if(PLAYER_VERTICAL)
+					m_player->SetPosY((map_y - 1)*CHIPSIZE);
 				m_player->SetSpdY(0);
 				m_player->Ground();
 			}
+
+		}
+		//マップチップが縦長の壁の時
+		if (m_map[map_y][map_x] == VERTICALWALL)
+		{
+			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
+			{
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+				{
+					m_player->SetPosY((map_y - 1)*CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+				//プレイヤーが横長の状態
+				else if (PLAYER_HORIZONTAL)
+				{
+					m_player->SetPosY(((float)map_y - HALF_UP)*CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+			}
+
 		}
 
 	}
@@ -313,11 +348,39 @@ void Stage::MapDownDecison()
 		{
 			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
 			{
-				m_player->SetPosY((map_y - 1)*CHIPSIZE);
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+					m_player->SetPosY((map_y - 1) * CHIPSIZE);
+				//プレイヤーが横長の状態
+				else if (PLAYER_HORIZONTAL)
+					m_player->SetPosY(((float)map_y - HALF_UP) * CHIPSIZE);
+				//プレイヤーが縦長の状態
+				if (PLAYER_VERTICAL)
+					m_player->SetPosY((map_y - 1) * CHIPSIZE);
 				m_player->SetSpdY(0);
 				m_player->Ground();
 			}
-
+		}
+		//マップチップが縦長の壁の時
+		if (m_map[map_y][map_x] == VERTICALWALL)
+		{
+			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
+			{
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+				{
+					m_player->SetPosY((map_y - 1) * CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+				//プレイヤーが横長の状態
+				else if (PLAYER_HORIZONTAL)
+				{
+					m_player->SetPosY(((float)map_y - HALF_UP) * CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+			}
 		}
 	}
 }
@@ -341,12 +404,46 @@ void Stage::MapSideDecison()
 		//マップチップが壁の時
 		if (m_map[map_y][map_x] == WALL)
 		{
-			if (m_player->GetPosX() + m_player->GetGrpW() >= map_x* CHIPSIZE)
+			if (m_player->GetPosX() + m_player->GetGrpW() >= map_x * CHIPSIZE)
 			{
-				m_player->SetPosX((map_x - 1)* CHIPSIZE);
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+					m_player->SetPosX((map_x - 1)* CHIPSIZE);
+				//プレイヤーが横長の状態
+				if (PLAYER_HORIZONTAL)
+					m_player->SetPosX((map_x - 1)* CHIPSIZE);
+				//プレイヤーが縦長の状態
+				else if (PLAYER_VERTICAL)
+					m_player->SetPosX(((float)map_x - HALF_UP)* CHIPSIZE);
 				m_player->SetSpdX(0);
 			}
 		}
+		//マップチップが横長の壁の時
+		if (m_map[map_y][map_x] == HORIZONTALWALL)
+		{
+				if (m_player->GetPosX() + m_player->GetGrpW() >= map_x * CHIPSIZE)
+				{
+					//プレイヤーが普通の状態
+					if (PLAYER_DEFAULT)
+						m_player->SetPosX((map_x - 1)* CHIPSIZE);
+					//プレイヤーが縦長の状態
+					else if (PLAYER_VERTICAL)
+						m_player->SetPosX(((float)map_x - HALF_UP)* CHIPSIZE);
+					m_player->SetSpdX(0);
+				}
+		}
+		//マップチップが縦長の壁の時
+		if (m_map[map_y][map_x] == VERTICALWALL)
+		{
+			if (m_player->GetPosX() + m_player->GetGrpW() >= map_x * CHIPSIZE)
+			{
+				//プレイヤーが縦長の状態
+				if (PLAYER_VERTICAL)
+					m_player->SetPosX(((float)map_x - HALF_UP)* CHIPSIZE);
+				m_player->SetSpdX(0);
+			}
+		}
+
 	}
 	//右中心
 	map_x = (int)floor((m_player->GetPosX()) / CHIPSIZE);
@@ -359,6 +456,31 @@ void Stage::MapSideDecison()
 			if (m_player->GetPosX() <= map_x* CHIPSIZE + CHIPSIZE)
 			{
 				m_player->SetPosX((map_x + 1)* CHIPSIZE);
+				m_player->SetSpdX(0);
+			}
+		}
+		//マップチップが横長の壁の時
+		if (m_map[map_y][map_x] == HORIZONTALWALL)
+		{
+			if (m_player->GetPosX() <= map_x* CHIPSIZE + CHIPSIZE)
+			{
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+					m_player->SetPosX((map_x + 1)* CHIPSIZE);
+				//プレイヤーが横長の状態
+				if (PLAYER_VERTICAL)
+					m_player->SetPosX((map_x + 1)* CHIPSIZE);
+				m_player->SetSpdX(0);
+			}
+		}
+		//マップチップが縦長の壁の時
+		if (m_map[map_y][map_x] == VERTICALWALL)
+		{
+			if (m_player->GetPosX() <= map_x* CHIPSIZE + CHIPSIZE)
+			{
+				//プレイヤーが縦長の状態
+				if (PLAYER_VERTICAL)
+					m_player->SetPosX((map_x - HALF_UP)* CHIPSIZE);
 				m_player->SetSpdX(0);
 			}
 		}
@@ -392,6 +514,21 @@ void Stage::MapJumpDecison()
 				m_player->SetSpdY(0);
 			}
 		}
+		//マップチップが横長の壁の時
+		if (m_map[map_y][map_x] == HORIZONTALWALL)
+		{
+			//判定
+			if ((m_player->GetPosY()) >(map_y * CHIPSIZE))
+			{
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+					m_player->SetPosY((map_y + 1) * CHIPSIZE);
+				//プレイヤーが横長の状態
+				else if (PLAYER_HORIZONTAL)
+					m_player->SetPosY(((float)map_y + HALF_UP) * CHIPSIZE);
+				m_player->SetSpdY(0);
+			}
+		}
 
 	}
 	//右上
@@ -407,6 +544,21 @@ void Stage::MapJumpDecison()
 			if ((m_player->GetPosY()) >(map_y * CHIPSIZE))
 			{
 				m_player->SetPosY((map_y + 1)* CHIPSIZE);
+				m_player->SetSpdY(0);
+			}
+		}
+		//マップチップが横長の壁の時
+		if (m_map[map_y][map_x] == HORIZONTALWALL)
+		{
+			//判定
+			if ((m_player->GetPosY()) >(map_y * CHIPSIZE))
+			{
+				//プレイヤーが普通の状態
+				if (PLAYER_DEFAULT)
+					m_player->SetPosY((map_y + 1)* CHIPSIZE);
+				//プレイヤーが横長の状態
+				else if (PLAYER_HORIZONTAL)
+					m_player->SetPosY(((float)map_y + HALF_UP)* CHIPSIZE);
 				m_player->SetSpdY(0);
 			}
 		}

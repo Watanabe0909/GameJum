@@ -20,6 +20,9 @@
 #include "..\Player.h"
 #include "..\Camera.h"
 
+#define PLAYER_DEFAULT (m_player->GetGrpH() == CHIPSIZE && m_player->GetGrpW() == CHIPSIZE)			//普通の状態
+#define PLAYER_VERTICAL (m_player->GetGrpH() == CHIPSIZE && m_player->GetGrpW() == CHIPSIZE / 2)	//縦長
+#define PLAYER_HORIZONTAL (m_player->GetGrpH() == CHIPSIZE / 2 && m_player->GetGrpW() == CHIPSIZE)	//横長
 //クラスの呼び出し
 class Texture;
 
@@ -41,13 +44,14 @@ enum Map
 class Stage 
 {
 private:
-	static const int  MAP_WIDTH = 20;	//マップの横幅
+	static const int  MAP_WIDTH = 40;	//マップの横幅
 	static const int MAP_HEIGHT = 15;	//マップの縦幅
 	static const int MAX_TIP = 300;		//マップチップの数
 	static const int CHIPSIZE = 32;		//マップチップの大きさ
 	static const int MAX_PRESS_NUM = 4;	//プレス機の数
 	static const int SHIFTED_POS = 10;	//座標をズラす
 	static const int SCREEN_WIDTH = 640;//画面の幅
+	static const float HALF_UP;			//半分上げる
 	int m_map[MAP_HEIGHT][MAP_WIDTH];	//マップ
 	Texture* m_map_image;				//マップの画像
 	Press* m_press[MAX_PRESS_NUM];		//プレス機
