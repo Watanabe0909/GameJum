@@ -16,6 +16,12 @@
 class Clear : public GameBase 
 {
 private:
+	Texture *m_clear_image;					//	クリア画像
+	Texture *m_clear_image2;				//	クリア画像２
+	bool m_fade_flag;						//	フェード用フラグ				
+	DirectX::SimpleMath::Color color;		//	フェード用変数
+	float m_alfa;							//	画像の透明度用変数
+	int m_count;							//	カウント
 
 public:
 	Clear();			//	コンストラクタ
