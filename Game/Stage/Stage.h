@@ -17,6 +17,8 @@
 #include "..\Object\SidePress.h"
 #include "..\Object\Burner.h"
 #include "..\Object\SidePress.h"
+#include "..\Player.h"
+
 //クラスの呼び出し
 class Texture;
 
@@ -32,6 +34,7 @@ enum Map
 	PRESS,			//プレス機
 	SIDEPRESS,		//横のプレス機
 	BURNER,			//バーナー
+	PLAYER,			//プレイヤー		
 };
 
 class Stage 
@@ -42,11 +45,13 @@ private:
 	static const int MAX_TIP = 300;		//マップチップの数
 	static const int CHIPSIZE = 32;		//マップチップの大きさ
 	static const int MAX_PRESS_NUM = 4;	//プレス機の数
+	static const int SHIFTED_POS = 10;	//座標をズラす
 	int m_map[MAP_HEIGHT][MAP_WIDTH];	//マップ
 	Texture* m_map_image;				//マップの画像
 	Press* m_press[MAX_PRESS_NUM];		//プレス機
 	Burner* m_burner[MAX_PRESS_NUM];	//バーナー
 	SidePress* m_side_press[MAX_PRESS_NUM];//横のプレス機
+	Player* m_player;					//プレイヤー
 	int m_press_count;					//プレス機のカウント
 	int m_burner_count;					//バーナーのカウント
 	int m_side_press_count;					//横のプレス機のカウント
@@ -58,4 +63,7 @@ public:
 	void Update();		//アップデート
 	void ObjectDraw();	//オブジェクトの描画
 	void DrawSprite(int grp_x, int grp_y, int grp_w, int grp_h, int i, int j);	//スプライトの描画
+	void mapdownDecison();	//マップチップとの下の当たり判定
+	void mapsideDecison();	//マップチップとの横の当たり判定
+	void mapjumpDecison();	//マップチップとの上の当たり判定
 };

@@ -41,6 +41,7 @@ Stage::Stage()
 				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE);
 				m_press_count++;
 				break;
+				//横のプレス機の生成
 			case SIDEPRESS:
 				m_side_press[m_side_press_count] = new SidePress(j * CHIPSIZE, i* CHIPSIZE);
 				m_side_press[m_side_press_count]->SetState(m_side_press_count);
@@ -50,6 +51,10 @@ Stage::Stage()
 			case BURNER:
 				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE);
 				m_burner_count++;
+				break;
+				//プレイヤーの生成
+			case PLAYER:
+				m_player = new Player(j * CHIPSIZE, i*CHIPSIZE);
 				break;
 			default:
 				break;
@@ -80,6 +85,8 @@ Stage::~Stage()
 		delete m_burner[i];	//バーナー
 		m_burner[i] = nullptr;
 	}
+	delete m_player;	//プレイヤー
+	m_player = nullptr;
 }
 
 //----------------------------------------------------------------------
@@ -130,6 +137,10 @@ void Stage::DrawStage()
 			case BURNER:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
+				//プレイヤー
+			case PLAYER:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
 			default:
 				break;
 			}
@@ -165,6 +176,12 @@ void Stage::Update()
 		m_side_press[i]->Update();	//座標変更
 		m_side_press[i]->Move();	//移動
 	}
+	//プレイヤー
+	m_player->Move();	//移動
+	m_player->Update(); //座標変更
+	mapdownDecison();	//マップチップとの下の当たり判定
+	mapsideDecison();	//マップチップとの横の当たり判定
+	mapjumpDecison();	//マップチップとの上の当たり判定
 }
 
 //----------------------------------------------------------------------
@@ -179,6 +196,7 @@ void Stage::ObjectDraw()
 	//プレス機
 	for (int i = 0; i < m_press_count; i++)
 		m_press[i]->Render();
+	//横のプレス機
 	for (int i = 0; i < m_side_press_count; i++)
 		m_side_press[i]->Render();
 
@@ -189,6 +207,8 @@ void Stage::ObjectDraw()
 		if (m_burner[i]->GetState() == true)
 			m_burner[i]->Render();
 	}
+	//プレイヤー
+	m_player->Render();
 }
 
 
@@ -243,4 +263,143 @@ void Stage::DrawSprite(int grp_x, int grp_y, int grp_w, int grp_h, int i,int j)
 	g_spriteBatch->Draw(m_map_image->m_pTexture, Vector2(CHIPSIZE * j, CHIPSIZE * i),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
+}
+
+//----------------------------------------------------------------------
+//! @brief マップチップとの下の当たり判定
+//!
+//! @param[in] 
+//!
+//! @return なし
+//----------------------------------------------------------------------
+
+void Stage::mapdownDecison()
+{
+	int map_x;
+	int map_y;
+	//左下
+	map_x = floor((m_player->GetPosX() + SHIFTED_POS) / CHIPSIZE);
+	map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
+	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
+	{
+		//マップチップが壁の時
+		if (m_map[map_y][map_x] == WALL)
+		{
+			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
+			{
+				m_player->SetPosY((map_y - 1)*CHIPSIZE);
+				m_player->SetSpdY(0);
+				m_player->Ground();
+			}
+		}
+
+	}
+	//右下
+	map_x = floor((m_player->GetPosX() + m_player->GetGrpW() - SHIFTED_POS) / CHIPSIZE);
+	map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
+	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
+	{
+		//マップチップが壁の時
+		if (m_map[map_y][map_x] == WALL)
+		{
+			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
+			{
+				m_player->SetPosY((map_y - 1)*CHIPSIZE);
+				m_player->SetSpdY(0);
+				m_player->Ground();
+			}
+
+		}
+	}
+}
+//----------------------------------------------------------------------
+//! @brief マップチップとの横の当たり判定
+//!
+//! @param[in] m_player
+//!
+//! @return なし
+//----------------------------------------------------------------------
+
+void Stage::mapsideDecison()
+{
+	int map_x;
+	int map_y;
+	//左中心
+	map_x = (int)floor((m_player->GetPosX() + m_player->GetGrpW()) / CHIPSIZE);
+	map_y = (int)floor((m_player->GetPosY() + m_player->GetGrpH() / 2) / CHIPSIZE);
+	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
+	{
+		//マップチップが壁の時
+		if (m_map[map_y][map_x] == WALL)
+		{
+			if (m_player->GetPosX() + m_player->GetGrpW() >= map_x* CHIPSIZE)
+			{
+				m_player->SetPosX((map_x - 1)* CHIPSIZE);
+				m_player->SetSpdX(0);
+			}
+		}
+	}
+	//右中心
+	map_x = (int)floor((m_player->GetPosX()) / CHIPSIZE);
+	map_y = (int)floor((m_player->GetPosY() + m_player->GetGrpH() / 2) / CHIPSIZE);
+	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
+	{
+		//マップチップが壁の時
+		if (m_map[map_y][map_x] == WALL)
+		{
+			if (m_player->GetPosX() <= map_x* CHIPSIZE + CHIPSIZE)
+			{
+				m_player->SetPosX((map_x + 1)* CHIPSIZE);
+				m_player->SetSpdX(0);
+			}
+		}
+	}
+}
+//----------------------------------------------------------------------
+//! @brief マップチップとの上の当たり判定
+//!
+//! @param[in] m_player
+//!
+//! @return なし
+//----------------------------------------------------------------------
+
+void Stage::mapjumpDecison()
+{
+	int map_x;
+	int map_y;
+	//左上
+	map_x = ((int)floor((m_player->GetPosX() + SHIFTED_POS / 2) / CHIPSIZE));
+	map_y = ((int)floor(m_player->GetPosY() / CHIPSIZE));
+	//配列内かチェック
+	if ((map_x >= 0 && map_x < MAP_WIDTH && map_y >= 0 && map_y < MAP_HEIGHT))
+	{
+		//マップチップが壁の時
+		if (m_map[map_y][map_x] == WALL)
+		{
+			//判定
+			if ((m_player->GetPosY()) >(map_y * CHIPSIZE))
+			{
+				m_player->SetPosY((map_y + 1) * CHIPSIZE);
+				m_player->SetSpdY(0);
+			}
+		}
+
+	}
+	//右上
+	map_x = ((int)floor((m_player->GetPosX() + m_player->GetGrpW() - SHIFTED_POS / 2) / CHIPSIZE));
+	map_y = ((int)floor(m_player->GetPosY() / CHIPSIZE));
+	//配列内かチェック
+	if ((map_x >= 0 && map_x < MAP_WIDTH && map_y >= 0 && map_y < MAP_HEIGHT))
+	{
+		//マップチップが壁の時
+		if (m_map[map_y][map_x] == WALL)
+		{
+			//判定
+			if ((m_player->GetPosY()) >(map_y * CHIPSIZE))
+			{
+				m_player->SetPosY((map_y + 1)* CHIPSIZE);
+				m_player->SetSpdY(0);
+			}
+		}
+	}
 }
