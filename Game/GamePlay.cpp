@@ -97,6 +97,15 @@ void Play::Update()
 			{
 				m_pause_select = RETURN;
 			}
+
+			//上下に動くギミックの更新
+			m_moveblock->Update();
+
+			//	Xキーが押されたらポーズフラグをtrueにする
+			if (g_keyTracker->pressed.X)
+			{
+				m_pause_select = RETURN;
+			}
 		}
 
 		//	上キーが押されたら選択を1戻す
