@@ -217,7 +217,7 @@ void Stage::Update()
 	for (int i = 0; i < m_press_count; i++)
 	{
 		m_press[i]->Update();	//座標変更
-		if (i == 1)									//プレス機の配列の一番はじめだったら
+		if (i == 1)									//動かしたいプレス機の要素番号
 		{
 			if (m_switch->GetState() == false)		//スイッチがオフだったら
 			{
@@ -750,12 +750,15 @@ void Stage::CollisionWind()
 					//	m_player->SetPosY((one_map_y - 1)*CHIPSIZE);
 					//プレイヤーが横長の状態
 					if (PLAYER_HORIZONTAL)
+					{
 						m_player->SetPosY(((float)map_y[i] - HALF_UP - 3) * CHIPSIZE);
-					////プレイヤーが縦長の状態
+					
+					//プレイヤーが縦長の状態
 					//else if (PLAYER_VERTICAL)
 					//	m_player->SetPosY((one_map_y - 1) * CHIPSIZE);
 					m_player->SetSpdY(0);
 					m_player->Ground();
+					}
 				}
 
 			}
@@ -782,12 +785,15 @@ void Stage::CollisionWind()
 					//	m_player->SetPosY((one_map_y - 1) * CHIPSIZE);
 					//プレイヤーが横長の状態
 					if (PLAYER_HORIZONTAL)
+					{
 						m_player->SetPosY(((float)map_y[i] - HALF_UP - 3) * CHIPSIZE);
+					
 					////プレイヤーが縦長の状態
 					//else if (PLAYER_VERTICAL)
 					//	m_player->SetPosY((one_map_y - 1)*CHIPSIZE);
 					m_player->SetSpdY(0);
 					m_player->Ground();
+					}
 				}
 			}
 		}
