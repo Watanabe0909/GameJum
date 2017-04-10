@@ -17,7 +17,7 @@
 //----------------------------------------------------------------------
 Player::Player(int pos_x, int pos_y)
 {
-	m_handle = new Texture(L"Resources\\Images\\PongImage.png");	//‰æ‘œ
+	m_handle = new Texture(L"Resources\\Images\\runas.png");	//‰æ‘œ
 	m_pos_x = pos_x;	//xÀ•W
 	m_pos_y = pos_y;	//yÀ•W
 	m_grp_x = 0;		//Œ³‰æ‘œ‚Ìgrp_x
