@@ -15,7 +15,7 @@
 #include "Stage\Stage.h"
 #include "Object\Press.h"
 #include "Object\SidePress.h"
-#include "MoveBlock.h"
+
 
 //ƒNƒ‰ƒX
 class Play:public GameBase

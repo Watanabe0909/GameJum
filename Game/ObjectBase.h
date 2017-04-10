@@ -43,6 +43,7 @@ public:
 	int GetState();					//	オブジェクトのステートを取得
 	void Update();					//	更新処理
 	void Render();					//	描画処理
+	float GetSpdX();				//スピードxを取得
 	void ObjectBase::Render(int camera_pos_x);//オブジェクトの描画処理(スクロールに対応)
 
 };

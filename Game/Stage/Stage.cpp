@@ -47,8 +47,7 @@ Stage::Stage()
 				break;
 				//横のプレス機の生成
 			case SIDEPRESS:
-				m_side_press[m_side_press_count] = new SidePress(j * CHIPSIZE, i* CHIPSIZE);
-				m_side_press[m_side_press_count]->SetState(m_side_press_count);
+				m_side_press[m_side_press_count] = new SidePress(j * CHIPSIZE + CHIPSIZE / 2, i* CHIPSIZE);
 				m_side_press_count++;
 				break;
 				//バーナーの生成
@@ -60,6 +59,7 @@ Stage::Stage()
 			case PLAYER:
 				m_player = new Player(j * CHIPSIZE, i * CHIPSIZE);
 				break;
+
 				//水の生成
 			case WATER:
 				m_water[m_water_count] = new Water(j * CHIPSIZE, i * CHIPSIZE + CHIPSIZE / 2);
@@ -68,6 +68,15 @@ Stage::Stage()
 				//ゴールの生成
 			case GOAL:
 				m_goal = new Goal(j * CHIPSIZE, i * CHIPSIZE);
+
+				//スイッチの生成
+			case SWITCH:
+				m_switch = new Switch(j * CHIPSIZE, i * CHIPSIZE);
+				break;
+				//スイッチの生成
+			case WIND:
+				m_wind[m_wind_count] = new Wind(j * CHIPSIZE, i * CHIPSIZE);
+				m_wind_count++;
 				break;
 			default:
 				break;
@@ -111,6 +120,14 @@ Stage::~Stage()
 	m_player = nullptr;
 	delete m_camera;	//カメラ
 	m_camera = nullptr;
+	delete m_switch;	//スイッチ
+	m_switch = nullptr;
+	for (int i = 0; i < m_wind_count; i++)
+	{
+		delete m_wind[i];		//風
+		m_wind[i] = nullptr;
+	}
+
 }
 
 //----------------------------------------------------------------------
@@ -170,6 +187,14 @@ void Stage::DrawStage()
 			case PLAYER:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
+				//スイッチ
+			case SWITCH:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
+				//風
+			case WIND:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
 			default:
 				break;
 			}
@@ -192,8 +217,23 @@ void Stage::Update()
 	for (int i = 0; i < m_press_count; i++)
 	{
 		m_press[i]->Update();	//座標変更
-		m_press[i]->Move();		//移動
+		if (i == 1)									//プレス機の配列の一番はじめだったら
+		{
+			if (m_switch->GetState() == false)		//スイッチがオフだったら
+			{
+				m_press[i]->Stop();		//停止
+			}
+			else
+			{
+				m_press[i]->Move();		//移動
+			}
+		}
+		else
+		{
+			m_press[i]->Move();		//移動
+		}
 	}
+
 	//バーナー
 	for (int i = 0; i < m_burner_count; i++)
 	{
@@ -216,14 +256,19 @@ void Stage::Update()
 	MapJumpDecison();	//マップチップとの上の当たり判定
 
 	//	ジャンプしているなら
-	if (!m_player->GetJump())
-	{
-		//	プレスとプレイヤーが当たっていたらプレイヤーの大きさを変える
-		if (CollisionPress())
-		{
-			m_player->ChangePlayer();
-		}
-	}
+	//if (!m_player->GetJump())
+	//{
+	//	//	プレスとプレイヤーが当たっていたらプレイヤーの大きさを変える
+	//	if (CollisionPress())
+	//	{
+	//		m_player->ChangePlayer();
+	//	}
+	//}
+	//スイッチ
+	if (CollisionSwitch())
+		m_switch->Swtiching();	//スイッチのオンオフの切り替え
+
+	CollisionWind();	//風とプレイヤーの当たり判定
 
 	//	バーナーと当たっていたらゲームオーバー
 	for (int i = 0; i < m_burner_count; i++)
@@ -252,6 +297,11 @@ void Stage::Update()
 		g_NextScene = CLEAR;
 	}
 
+	//プレス機とプレイヤーの当たり判定
+	CollisionPress();
+	//横のプレス機
+	CollisionSidePress();
+	m_press_flag = false;	//プレスされていない
 }
 
 //----------------------------------------------------------------------
@@ -288,6 +338,14 @@ void Stage::ObjectDraw()
 	//ゴール
 	m_goal->Render(m_camera->GetPosX());
 
+	//スイッチ
+	m_switch->Render(m_camera->GetPosX());
+	//風
+	for (int i = 0; i < m_wind_count; i++)
+	{
+		m_wind[i]->Render(m_camera->GetPosX());
+	}
+	
 }
 
 
@@ -362,8 +420,8 @@ void Stage::MapDownDecison()
 	map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
 	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
 	{
-		//マップチップが壁の時
-		if (m_map[map_y][map_x] == WALL)
+		//マップチップが壁またはスイッチの時
+		if (m_map[map_y][map_x] == WALL || m_map[map_y][map_x] == SWITCH)
 		{
 			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
 			{
@@ -410,8 +468,8 @@ void Stage::MapDownDecison()
 	map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
 	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
 	{
-		//マップチップが壁の時
-		if (m_map[map_y][map_x] == WALL)
+		//マップチップが壁またはスイッチの時
+		if (m_map[map_y][map_x] == WALL || m_map[map_y][map_x] == SWITCH)
 		{
 			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
 			{
@@ -524,6 +582,7 @@ void Stage::MapSideDecison()
 			{
 				m_player->SetPosX((map_x + 1)* CHIPSIZE);
 				m_player->SetSpdX(0);
+				m_press_flag = true;
 			}
 		}
 		//マップチップが横長の壁の時
@@ -631,6 +690,111 @@ void Stage::MapJumpDecison()
 	}
 }
 
+
+//----------------------------------------------------------------------
+//! @brief スイッチとプレイヤーの当たり判定
+//!
+//! @param[in] 比較をするオブジェクトを２つ
+//!
+//! @return 当たっているとき１、当たっていないとき０
+//----------------------------------------------------------------------
+bool Stage::CollisionSwitch()
+{
+	float x1 = m_player->GetPosX() + m_player->GetGrpW() / 2;	//Aの中心座標x
+	float y1 = m_player->GetPosY() + m_player->GetGrpH() / 2;	//Aの中心座標y
+	float x2 = m_switch->GetPosX() + m_switch->GetGrpW() / 2;	//Bの中心座標x
+	float y2 = m_switch->GetPosY() + m_switch->GetGrpH() / 2;	//Bの中心座標y
+	float r1 = m_player->GetGrpW() / 2;
+	float r2 = m_switch->GetGrpW() / 2;
+	//円の当たり判定
+	if ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) <= (r1 + r2)*(r1 + r2))
+	{
+		m_switch->SetState(true);
+		return true;
+	}
+	return false;
+}
+
+
+//----------------------------------------------------------------------
+//! @brief 風とプレイヤーの当たり判定
+//!
+//! @param[in] 比較をするオブジェクトを２つ
+//!
+//! @return 当たっているとき１、当たっていないとき０
+//----------------------------------------------------------------------
+void Stage::CollisionWind()
+{
+	int loop_grp_h = 0;
+	int loop_grp_h2 = 0;
+	int map_x;
+	int map_y[WIND_RANGE];
+	int one_map_y;
+	
+	//左下
+	map_x = floor((m_player->GetPosX() + SHIFTED_POS) / CHIPSIZE);
+	one_map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
+	for (int i = 0; i < WIND_RANGE; i++)
+	{
+		loop_grp_h += m_player->GetGrpH();
+		map_y[i] = floor((m_player->GetPosY() + loop_grp_h) / CHIPSIZE);
+		if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y[i] >= 0 && map_y[i] < MAP_HEIGHT))
+		{
+			//マップチップが壁またはスイッチの時
+			if (m_map[map_y[i]+2][map_x] == WIND)
+			{
+				if (m_player->GetPosY() + m_player->GetGrpH() > map_y[i] * CHIPSIZE)
+				{
+					////プレイヤーが普通の状態
+					//if (PLAYER_DEFAULT)
+					//	m_player->SetPosY((one_map_y - 1)*CHIPSIZE);
+					//プレイヤーが横長の状態
+					if (PLAYER_HORIZONTAL)
+						m_player->SetPosY(((float)map_y[i] - HALF_UP - 3) * CHIPSIZE);
+					////プレイヤーが縦長の状態
+					//else if (PLAYER_VERTICAL)
+					//	m_player->SetPosY((one_map_y - 1) * CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+
+			}
+		}
+	}
+	
+	
+	//右下
+	map_x = floor((m_player->GetPosX() + m_player->GetGrpW() - SHIFTED_POS) / CHIPSIZE);
+	one_map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
+	for (int i = 0; i < WIND_RANGE; i++)
+	{
+		loop_grp_h2 += m_player->GetGrpH();
+		map_y[i] = floor((m_player->GetPosY() + loop_grp_h2) / CHIPSIZE);
+		if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y[i] < MAP_HEIGHT))
+		{
+			//マップチップが壁またはスイッチの時
+			if (m_map[map_y[i]+2][map_x] == WIND)
+			{
+				if (m_player->GetPosY() + m_player->GetGrpH() > map_y[i] * CHIPSIZE)
+				{
+					////プレイヤーが普通の状態
+					//if (PLAYER_DEFAULT)
+					//	m_player->SetPosY((one_map_y - 1) * CHIPSIZE);
+					//プレイヤーが横長の状態
+					if (PLAYER_HORIZONTAL)
+						m_player->SetPosY(((float)map_y[i] - HALF_UP - 3) * CHIPSIZE);
+					////プレイヤーが縦長の状態
+					//else if (PLAYER_VERTICAL)
+					//	m_player->SetPosY((one_map_y - 1)*CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+			}
+		}
+	}
+
+}
+
 //----------------------------------------------------------------------
 //! @brief プレス機とプレイヤーの当たり判定
 //!
@@ -638,18 +802,74 @@ void Stage::MapJumpDecison()
 //!
 //! @return 当たっているかどうか
 //----------------------------------------------------------------------
-bool Stage::CollisionPress()
+void Stage::CollisionPress()
 {
 	for (int i = 0; i < m_press_count; i++)
 	{
-		if (m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
+		//左
+		if (m_player->GetPosY() > m_press[i]->GetPosY() &&
+			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY() + m_player->GetGrpH() &&
+			m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
+			m_player->GetPosX() < m_press[i]->GetPosX())
+		{
+			m_player->SetPosX(m_press[i]->GetPosX() - m_player->GetGrpW());	//座標
+			m_player->SetSpdX(0);	//スピード
+		}
+		//右
+		if (m_player->GetPosY() > m_press[i]->GetPosY() &&
+			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY() + m_player->GetGrpH() &&
+			m_player->GetPosX() < m_press[i]->GetPosX() + m_press[i]->GetGrpW() &&
+			m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() + m_press[i]->GetGrpW())
+		{
+			m_player->SetPosX(m_press[i]->GetPosX() + m_press[i]->GetGrpW());	//座標
+			m_player->SetSpdX(0);	//スピード
+		}
+		//下
+		else if (m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
 			m_press[i]->GetPosX() + m_press[i]->GetGrpW() > m_player->GetPosX() &&
 			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY())
 		{
-			return true;
+			m_player->SetPosY(m_press[i]->GetPosY() + m_press[i]->GetGrpH());	//座標
+			m_player->SetSpdY(0);	//スピード
+			//ジャンプしていないなら
+			if (!m_player->GetJump())
+				m_player->ChangePlayerH();	//潰す
 		}
 	}
-	return false;
+}
+
+//----------------------------------------------------------------------
+//! @brief 横のプレス機とプレイヤーの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return 当たっているかどうか
+//----------------------------------------------------------------------
+void Stage::CollisionSidePress()
+{
+	for (int i = 0; i < m_side_press_count; i++)
+	{
+		//左
+		if (m_player->GetPosX() + m_player->GetGrpW() > m_side_press[i]->GetPosX() &&
+			m_player->GetPosY() > m_side_press[i]->GetPosY() &&
+			m_side_press[i]->GetPosY() + m_side_press[i]->GetGrpH() >= m_player->GetPosY() + m_player->GetGrpH() &&
+			m_side_press[i]->GetPosX() > m_player->GetPosX())
+		{
+			m_player->SetPosX(m_side_press[i]->GetPosX() - m_player->GetGrpW());	//座標
+			m_player->SetSpdX(0);	//スピード
+			if(m_press_flag)
+			m_player->ChangePlayerW();	//潰す
+		}
+		//上
+		if (m_player->GetPosX() + m_player->GetGrpW() > m_side_press[i]->GetPosX() &&
+			m_side_press[i]->GetPosX() + m_side_press[i]->GetGrpW() > m_player->GetPosX() &&
+			m_player->GetPosY() + m_player->GetGrpH() > m_side_press[i]->GetPosY())
+		{
+			m_player->SetPosY(m_side_press[i]->GetPosY() - m_player->GetGrpH());
+			m_player->SetSpdY(0);
+			m_player->Ground();
+		}
+	}
 }
 
 //----------------------------------------------------------------------

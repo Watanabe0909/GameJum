@@ -20,8 +20,13 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Game\Object\Water.cpp" />
     <ClCompile Include="Game\Object\Goal.cpp" />
+=======
+    <ClCompile Include="Game\Switch.cpp" />
+    <ClCompile Include="Game\Wind.cpp" />
+>>>>>>> dcdb7408cfe0e4e72d45104516d15c56c094013d
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADX2Le.h" />
@@ -45,8 +50,13 @@
     <ClInclude Include="MemoryLeakDetector.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Game\Camera.h" />
+<<<<<<< HEAD
     <ClInclude Include="Game\Object\Water.h" />
     <ClInclude Include="Game\Object\Goal.h" />
+=======
+    <ClInclude Include="Game\Switch.h" />
+    <ClInclude Include="Game\Wind.h" />
+>>>>>>> dcdb7408cfe0e4e72d45104516d15c56c094013d
   </ItemGroup>
   <ItemGroup>
     <None Include="myfile.spritefont" />

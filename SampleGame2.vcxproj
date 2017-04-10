@@ -103,6 +103,8 @@
     <ClCompile Include="Game\Object\Water.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
+    <ClCompile Include="Game\Switch.cpp" />
+    <ClCompile Include="Game\Wind.cpp" />
     <ClCompile Include="ImaseLib\FPSTimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -128,6 +130,8 @@
     <ClInclude Include="Game\Object\Water.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
+    <ClInclude Include="Game\Switch.h" />
+    <ClInclude Include="Game\Wind.h" />
     <ClInclude Include="ImaseLib\FPSTimer.h" />
     <ClInclude Include="MemoryLeakDetector.h" />
     <ClInclude Include="Texture.h" />
