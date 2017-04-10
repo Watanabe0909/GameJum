@@ -132,6 +132,11 @@ void ObjectBase::Render()
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 }
 
+float ObjectBase::GetSpdX()
+{
+	return m_spd_x;
+}
+
 //オブジェクトの描画処理(スクロールに対応)
 void ObjectBase::Render(int camera_pos_x)
 {

@@ -18,7 +18,7 @@
 SidePress::SidePress(int pos_x, int pos_y)
 	:m_count(0)			//カウント
 {
-	m_handle = new Texture(L"Resources\\Images\\Press.png");	//画像
+	m_handle = new Texture(L"Resources\\Images\\SidePress.png");	//画像
 	m_pos_x = pos_x;											//x座標
 	m_pos_y = pos_y;											//y座標
 	m_grp_x = 0;												//元画像のgrp_x
@@ -47,30 +47,14 @@ void SidePress::Move()
 
 	m_count++;
 
-	if (m_state % 2 == 0) //ステイトが偶数なら右に移動
-	{
-		//下移動
-		if (m_count < CHANGE_MOVE_COUNT / 2)
-			m_spd_x = 1;
-		//上移動
-		if (m_count > CHANGE_MOVE_COUNT / 2)
-			m_spd_x = -1;
-		//reset
-		if (m_count == CHANGE_MOVE_COUNT)
-			m_count = 0;
-	}
-	else				  //ステイトが奇数なら左に移動
-	{
-		//下移動
-		if (m_count < CHANGE_MOVE_COUNT / 2)
-			m_spd_x = -1;
-		//上移動
-		if (m_count > CHANGE_MOVE_COUNT / 2)
-			m_spd_x = 1;
-		//reset
-		if (m_count == CHANGE_MOVE_COUNT)
-			m_count = 0;
-	}
-	
+	//右移動
+	if (m_count < CHANGE_MOVE_COUNT / 2)
+		m_spd_x = 1.0f;
+	//左移動
+	if (m_count > CHANGE_MOVE_COUNT / 2)
+		m_spd_x = -1.0f;
+	//reset
+	if (m_count >= CHANGE_MOVE_COUNT)
+		m_count = 0;
 
 }
