@@ -88,24 +88,42 @@ void Player::Ground()
 //----------------------------------------------------------------------
 void Player::ChangePlayer()
 {
-	if (m_grp_h == PLAYER_GRP && g_keyTracker->pressed.A)
+	//if (m_grp_h == PLAYER_GRP && g_keyTracker->pressed.A)
+	//{
+	//	m_grp_h = PLAYER_GRP / 2;
+	//	m_grp_w = PLAYER_GRP;
+	//}
+	//else if (m_grp_h == PLAYER_GRP / 2 && g_keyTracker->pressed.A)
+	//{
+	//	m_grp_h = PLAYER_GRP;
+	//}
+	//if (m_grp_w == PLAYER_GRP && g_keyTracker->pressed.S)
+	//{
+	//	m_grp_w = PLAYER_GRP / 2;
+	//	m_grp_h = PLAYER_GRP;
+	//}
+	//else if (m_grp_w == PLAYER_GRP / 2 && g_keyTracker->pressed.S)
+	//{
+	//	m_grp_w = PLAYER_GRP;
+	//}
+
+	if (m_grp_h == PLAYER_GRP)
 	{
 		m_grp_h = PLAYER_GRP / 2;
 		m_grp_w = PLAYER_GRP;
 	}
-	else if (m_grp_h == PLAYER_GRP / 2 && g_keyTracker->pressed.A)
-	{
-		m_grp_h = PLAYER_GRP;
-	}
-	if (m_grp_w == PLAYER_GRP && g_keyTracker->pressed.S)
-	{
-		m_grp_w = PLAYER_GRP / 2;
-		m_grp_h = PLAYER_GRP;
-	}
-	else if (m_grp_w == PLAYER_GRP / 2 && g_keyTracker->pressed.S)
-	{
-		m_grp_w = PLAYER_GRP;
-	}
 
+}
+
+//----------------------------------------------------------------------
+//! @brief プレイヤーがジャンプしているかどうかを返す
+//!
+//! @param[in] なし
+//!
+//! @return true:ジャンプしている　false:ジャンプしていない
+//----------------------------------------------------------------------
+bool Player::GetJump()
+{
+	return m_jump_flag;
 }
 

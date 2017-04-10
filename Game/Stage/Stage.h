@@ -73,4 +73,5 @@ public:
 	void MapDownDecison();	//マップチップとの下の当たり判定
 	void MapSideDecison();	//マップチップとの横の当たり判定
 	void MapJumpDecison();	//マップチップとの上の当たり判定
+	bool CollisionPress();	//プレス機とプレイヤーの当たり判定
 };

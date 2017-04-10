@@ -41,7 +41,7 @@ Stage::Stage()
 			{
 				//プレス機の生成
 			case PRESS:
-				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE);
+				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE - CHIPSIZE / 2);
 				m_press_count++;
 				break;
 				//横のプレス機の生成
@@ -189,10 +189,19 @@ void Stage::Update()
 	//プレイヤー
 	m_player->Move();	//移動
 	m_player->Update(); //座標変更
-	m_player->ChangePlayer();
 	MapDownDecison();	//マップチップとの下の当たり判定
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
+
+	//	ジャンプしているなら
+	if (!m_player->GetJump())
+	{
+		//	プレスとプレイヤーが当たっていたらプレイヤーの大きさを変える
+		if (CollisionPress())
+		{
+			m_player->ChangePlayer();
+		}
+	}
 }
 
 //----------------------------------------------------------------------
@@ -563,4 +572,25 @@ void Stage::MapJumpDecison()
 			}
 		}
 	}
+}
+
+//----------------------------------------------------------------------
+//! @brief プレス機とプレイヤーの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return 当たっているかどうか
+//----------------------------------------------------------------------
+bool Stage::CollisionPress()
+{
+	for (int i = 0; i < m_press_count; i++)
+	{
+		if (m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
+			m_press[i]->GetPosX() + m_press[i]->GetGrpW() > m_player->GetPosX() &&
+			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY())
+		{
+			return true;
+		}
+	}
+	return false;
 }
