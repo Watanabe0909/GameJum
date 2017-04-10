@@ -27,6 +27,7 @@ Title::Title()
 	//	タイトル画像の初期化
 	m_title_image = new Texture(L"Resources\\Images\\title.png");
 	m_title_image2 = new Texture(L"Resources\\Images\\title2.png");
+	m_back_image = new Texture(L"Resources\\Images\\back.png");
 
 	//	フェード用変数の初期化
 	m_fade_flag = false;
@@ -104,6 +105,9 @@ void Title::Update()
 //----------------------------------------------------------------------
 void Title::Render()
 {
+	//	画像の描画
+	g_spriteBatch->Draw(m_back_image->m_pTexture, Vector2(0, 0));
+
 	if (m_count <= 20)
 	{
 		//	画像の描画

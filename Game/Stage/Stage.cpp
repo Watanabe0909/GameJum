@@ -9,6 +9,7 @@
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 
 #include "Stage.h"
+#include "..\GameMain.h"
 #include <fstream>
 #include <sstream>
 #include <SimpleMath.h>
@@ -52,7 +53,7 @@ Stage::Stage()
 				break;
 				//バーナーの生成
 			case BURNER:
-				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE);
+				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE - CHIPSIZE / 2);
 				m_burner_count++;
 				break;
 				//プレイヤーの生成
@@ -193,6 +194,7 @@ void Stage::Update()
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
 
+<<<<<<< HEAD
 	//	ジャンプしているなら
 	if (!m_player->GetJump())
 	{
@@ -200,6 +202,14 @@ void Stage::Update()
 		if (CollisionPress())
 		{
 			m_player->ChangePlayer();
+=======
+	//	バーナーと当たっていたらゲームオーバー
+	if (m_burner[m_burner_count - 1]->GetState() == 1)
+	{
+		if (CollisionBurner())
+		{
+			g_NextScene = OVER;
+>>>>>>> b23c58f53c56f09b289030b29347a12b2c1e4efa
 		}
 	}
 }
@@ -502,7 +512,6 @@ void Stage::MapSideDecison()
 //!
 //! @return なし
 //----------------------------------------------------------------------
-
 void Stage::MapJumpDecison()
 {
 	int map_x;
@@ -575,6 +584,7 @@ void Stage::MapJumpDecison()
 }
 
 //----------------------------------------------------------------------
+<<<<<<< HEAD
 //! @brief プレス機とプレイヤーの当たり判定
 //!
 //! @param[in] なし
@@ -594,3 +604,26 @@ bool Stage::CollisionPress()
 	}
 	return false;
 }
+=======
+//! @brief　プレイヤーとバーナーとの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return false:当たっていない, true:当たっている
+//----------------------------------------------------------------------
+bool Stage::CollisionBurner()
+{
+	//	短形での当たり判定
+	if (
+		(m_player->GetPosX() <= m_burner[m_burner_count - 1]->GetPosX() + m_burner[m_burner_count - 1]->GetGrpW()) &&
+		(m_player->GetPosX() + m_player->GetGrpW() >= m_burner[m_burner_count - 1]->GetPosX()) &&
+		(m_player->GetPosY() <= m_burner[m_burner_count - 1]->GetPosY() + m_burner[m_burner_count - 1]->GetGrpH()) &&
+		(m_player->GetPosY() + m_player->GetGrpH() >= m_burner[m_burner_count - 1]->GetPosY())
+		)
+	{
+		return true;
+	}
+
+	return false;
+}
+>>>>>>> b23c58f53c56f09b289030b29347a12b2c1e4efa

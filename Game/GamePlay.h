@@ -26,6 +26,7 @@ private:
 
 	Texture *m_pause_image;		//	ポーズ時画像
 	Texture *m_line_image;		//	選択用線の画像
+	Texture *m_back_image;		//	背景(黒)画像
 	bool m_pause_flag;			//	ポーズフラグ
 	int m_pause_select;			//	ポーズ時選択用変数
 

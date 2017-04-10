@@ -36,6 +36,9 @@ Play::Play()
 	//	選択用の線の画像
 	m_line_image = new Texture(L"Resources\\Images\\Line.png");
 
+	//	背景(黒)の初期化
+	m_back_image = new Texture(L"Resources\\Images\\back.png");
+
 	//	ポーズフラグの初期化
 	m_pause_flag = false;
 
@@ -147,6 +150,8 @@ void Play::Update()
 //----------------------------------------------------------------------
 void Play::Render()
 {
+	//	画像の描画
+	g_spriteBatch->Draw(m_back_image->m_pTexture, Vector2(0, 0));
 
 	//ステージの描画
 	m_stage->DrawStage();
