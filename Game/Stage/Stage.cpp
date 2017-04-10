@@ -287,7 +287,7 @@ void Stage::Update()
 	{
 		if (CollisionWater(i))
 		{
-			//g_NextScene = OVER;
+			g_NextScene = OVER;
 		}
 	}
 
