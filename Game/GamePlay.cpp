@@ -27,6 +27,10 @@ using namespace std;
 //----------------------------------------------------------------------
 Play::Play()
 {
+	//鳴っているBGMを止める
+	ADX2Le::Stop;
+	//プレイシーンのBGM
+	ADX2Le::Play(CRI_CUESHEET_0_VAMPIRENOMEZAME);
 
 	m_stage = new Stage;	//ステージ
 
@@ -71,7 +75,8 @@ Play::~Play()
 //----------------------------------------------------------------------
 void Play::Update()
 {
-
+	
+	
 	//プレイ画面
 	if (!m_pause_flag)
 	{
@@ -91,7 +96,7 @@ void Play::Update()
 		if (g_keyTracker->pressed.Down)
 		{
 			//	SEの再生
-			ADX2Le::Play(CRI_CUESHEET_1_SE);
+			ADX2Le::Play(CRI_CUESHEET_0_SE);
 			//	選択用変数に1を足す
 			m_pause_select++;
 
@@ -110,7 +115,7 @@ void Play::Update()
 		//	上キーが押されたら選択を1戻す
 		if (g_keyTracker->pressed.Up)
 		{
-			ADX2Le::Play(CRI_CUESHEET_1_SE);
+			ADX2Le::Play(CRI_CUESHEET_0_SE);
 			//	選択用変数から1を引く
 			m_pause_select--;
 
@@ -124,7 +129,7 @@ void Play::Update()
 		//	Zキーが押されたら選択によって次に進む
 		if (g_keyTracker->pressed.Z)
 		{
-			ADX2Le::Play(CRI_CUESHEET_1_SE);
+			ADX2Le::Play(CRI_CUESHEET_0_SE);
 			//	選択がRETURNの時ならゲームへ戻る
 			if (m_pause_select == RETURN)
 			{

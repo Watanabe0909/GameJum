@@ -45,10 +45,10 @@ GameBase* base;
 void InitializeGame(void)
 {
 
-	base = new Play();
+	base = new Title();
 
-	ADX2Le::Initialize("Nightmare.acf");
-	ADX2Le::LoadAcb("Resources\\Sounds\\CueSheet_0.acb");
+	ADX2Le::Initialize("Resources\\Sounds\\Nightmare.acf");
+	ADX2Le::LoadAcb("Resources\\Sounds\\CueSheet_0.acb", "Resources\\Sounds\\CueSheet_0.awb");
 
 	g_NextScene = g_scene;
 }

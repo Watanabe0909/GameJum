@@ -27,6 +27,11 @@ const float Title::ALFA_COUNT = 0.01f;
 //----------------------------------------------------------------------
 Title::Title()
 {
+	//鳴っているBGMを止める
+	ADX2Le::Stop;
+	//タイトルシーンのBGM
+	ADX2Le::Play(CRI_CUESHEET_0_FUONNAKIRI);
+
 	//	タイトル画像の初期化
 	m_title_image = new Texture(L"Resources\\Images\\title.png");
 	m_title_image2 = new Texture(L"Resources\\Images\\title2.png");
@@ -70,7 +75,7 @@ void Title::Update()
 	//	Zキーを押したらプレイシーンへ
 	if (g_keyTracker->pressed.Z)
 	{
-		ADX2Le::Play(CRI_CUESHEET_1_SE);
+		ADX2Le::Play(CRI_CUESHEET_0_SE);
 		m_fade_flag = true;
 	}
 
