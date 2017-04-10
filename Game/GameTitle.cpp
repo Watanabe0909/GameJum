@@ -28,10 +28,8 @@ const float Title::ALFA_COUNT = 0.01f;
 Title::Title()
 {
 	//鳴っているBGMを止める
-	ADX2Le::Stop;
-	//タイトルシーンのBGM
-	ADX2Le::Play(CRI_CUESHEET_0_FUONNAKIRI);
-
+	ADX2Le::Stop();
+	
 	//	タイトル画像の初期化
 	m_title_image = new Texture(L"Resources\\Images\\title.png");
 	m_title_image2 = new Texture(L"Resources\\Images\\title2.png");
@@ -69,6 +67,8 @@ void Title::Update()
 	//シーンの最初に一回だけ行う初期化処理
 	if (g_init == 0)
 	{
+		//タイトルシーンのBGM
+		ADX2Le::Play(CRI_CUESHEET_0_MUSICBOX);
 		g_init = 1;
 	}
 

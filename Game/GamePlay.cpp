@@ -28,7 +28,7 @@ using namespace std;
 Play::Play()
 {
 	//鳴っているBGMを止める
-	ADX2Le::Stop;
+	ADX2Le::Stop();
 	//プレイシーンのBGM
 	ADX2Le::Play(CRI_CUESHEET_0_VAMPIRENOMEZAME);
 

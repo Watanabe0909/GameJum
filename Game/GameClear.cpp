@@ -24,7 +24,7 @@ using namespace DirectX;
 Clear::Clear()
 {
 	//鳴っているBGMを止める
-	ADX2Le::Stop;
+	ADX2Le::Stop();
 	//ゲームクリアシーン中のBGM
 	ADX2Le::Play(CRI_CUESHEET_0_SHOUKEI);
 

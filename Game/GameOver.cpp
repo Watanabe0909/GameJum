@@ -25,7 +25,7 @@ using namespace DirectX;
 Over::Over()
 {
 	//鳴っているBGMを止める
-	ADX2Le::Stop;
+	ADX2Le::Stop();
 	//ゲームオーバーシーン中のBGM
 	ADX2Le::Play(CRI_CUESHEET_0_TOMOSHIBI);
 
