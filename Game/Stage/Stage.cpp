@@ -59,6 +59,10 @@ Stage::Stage()
 			case PLAYER:
 				m_player = new Player(j * CHIPSIZE, i * CHIPSIZE);
 				break;
+				//スイッチの生成
+			case SWITCH:
+				m_switch = new Switch(j * CHIPSIZE, i*CHIPSIZE);
+				break;
 			default:
 				break;
 			}
@@ -94,6 +98,8 @@ Stage::~Stage()
 	m_player = nullptr;
 	delete m_camera;	//カメラ
 	m_camera = nullptr;
+	delete m_switch;	//スイッチ
+	m_switch = nullptr;
 }
 
 //----------------------------------------------------------------------
@@ -148,6 +154,10 @@ void Stage::DrawStage()
 			case PLAYER:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
+				//スイッチ
+			case SWITCH:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
 			default:
 				break;
 			}
@@ -170,8 +180,23 @@ void Stage::Update()
 	for (int i = 0; i < m_press_count; i++)
 	{
 		m_press[i]->Update();	//座標変更
-		m_press[i]->Move();		//移動
+		if (i == 1)									//プレス機の配列の一番はじめだったら
+		{
+			if (m_switch->GetState() == false)		//スイッチがオフだったら
+			{
+				m_press[i]->Stop();		//停止
+			}
+			else
+			{
+				m_press[i]->Move();		//移動
+			}
+		}
+		else
+		{
+			m_press[i]->Move();		//移動
+		}
 	}
+
 	//バーナー
 	for (int i = 0; i < m_burner_count; i++)
 	{
@@ -193,6 +218,10 @@ void Stage::Update()
 	MapDownDecison();	//マップチップとの下の当たり判定
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
+
+	//スイッチ
+	if (CollisionSwitch())
+		m_switch->Swtiching();	//スイッチのオンオフの切り替え
 }
 
 //----------------------------------------------------------------------
@@ -220,7 +249,9 @@ void Stage::ObjectDraw()
 	}
 	//プレイヤー
 	m_player->Render(m_camera->GetPosX());
-
+	//スイッチ
+	m_switch->Render(m_camera->GetPosX());
+	
 }
 
 
@@ -295,8 +326,8 @@ void Stage::MapDownDecison()
 	map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
 	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
 	{
-		//マップチップが壁の時
-		if (m_map[map_y][map_x] == WALL)
+		//マップチップが壁またはスイッチの時
+		if (m_map[map_y][map_x] == WALL || m_map[map_y][map_x] == SWITCH)
 		{
 			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
 			{
@@ -343,8 +374,8 @@ void Stage::MapDownDecison()
 	map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
 	if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y < MAP_HEIGHT))
 	{
-		//マップチップが壁の時
-		if (m_map[map_y][map_x] == WALL)
+		//マップチップが壁またはスイッチの時
+		if (m_map[map_y][map_x] == WALL || m_map[map_y][map_x] == SWITCH)
 		{
 			if (m_player->GetPosY() + m_player->GetGrpH() > map_y * CHIPSIZE)
 			{
@@ -564,3 +595,53 @@ void Stage::MapJumpDecison()
 		}
 	}
 }
+
+
+//----------------------------------------------------------------------
+//! @brief スイッチとプレイヤーの当たり判定
+//!
+//! @param[in] 比較をするオブジェクトを２つ
+//!
+//! @return 当たっているとき１、当たっていないとき０
+//----------------------------------------------------------------------
+bool Stage::CollisionSwitch()
+{
+	float x1 = m_player->GetPosX() + m_player->GetGrpW() / 2;	//Aの中心座標x
+	float y1 = m_player->GetPosY() + m_player->GetGrpH() / 2;	//Aの中心座標y
+	float x2 = m_switch->GetPosX() + m_switch->GetGrpW() / 2;	//Bの中心座標x
+	float y2 = m_switch->GetPosY() + m_switch->GetGrpH() / 2;	//Bの中心座標y
+	float r1 = m_player->GetGrpW() / 2;
+	float r2 = m_switch->GetGrpW() / 2;
+	//円の当たり判定
+	if ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) <= (r1 + r2)*(r1 + r2))
+	{
+		m_switch->SetState(true);
+		return true;
+	}
+	return false;
+}
+
+////----------------------------------------------------------------------
+////! @brief プレス機とプレイヤーの当たり判定
+////!
+////! @param[in] なし
+////!
+////! @return 当たっているかどうか
+////----------------------------------------------------------------------
+//bool Stage::CollisionPress()
+//{
+//	float x1 = m_player->GetPosX() + m_player->GetGrpW() / 2;	//Aの中心座標x
+//	float y1 = m_player->GetPosY() + m_player->GetGrpH() / 2;	//Aの中心座標y
+//	float x2 = B.pos_x + B.grp_w / 2;	//Bの中心座標x
+//	float y2 = B.pos_y + B.grp_h / 2;	//Bの中心座標y
+//	float r1 = A.grp_w / 2;
+//	float r2 = B.grp_w / 2;
+//	//円の当たり判定
+//	if ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) <= (r1 + r2)*(r1 + r2))
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+
+

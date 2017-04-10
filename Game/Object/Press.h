@@ -22,4 +22,5 @@ public:
 	Press(int pos_x, int pos_y);	//コンストラクタ
 	~Press();		//デストラクタ
 	void Move();	//移動
+	void Stop();	//停止
 };

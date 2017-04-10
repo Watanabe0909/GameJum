@@ -19,6 +19,7 @@
 #include "..\Object\SidePress.h"
 #include "..\Player.h"
 #include "..\Camera.h"
+#include "..\Switch.h"
 
 #define PLAYER_DEFAULT (m_player->GetGrpH() == CHIPSIZE && m_player->GetGrpW() == CHIPSIZE)			//普通の状態
 #define PLAYER_VERTICAL (m_player->GetGrpH() == CHIPSIZE && m_player->GetGrpW() == CHIPSIZE / 2)	//縦長
@@ -38,7 +39,8 @@ enum Map
 	PRESS,			//プレス機
 	SIDEPRESS,		//横のプレス機
 	BURNER,			//バーナー
-	PLAYER,			//プレイヤー		
+	PLAYER,			//プレイヤー
+	SWITCH,			//スイッチ
 };
 
 class Stage 
@@ -53,12 +55,15 @@ private:
 	static const int SCREEN_WIDTH = 640;//画面の幅
 	static const float HALF_UP;			//半分上げる
 	int m_map[MAP_HEIGHT][MAP_WIDTH];	//マップ
+
 	Texture* m_map_image;				//マップの画像
 	Press* m_press[MAX_PRESS_NUM];		//プレス機
 	Burner* m_burner[MAX_PRESS_NUM];	//バーナー
 	SidePress* m_side_press[MAX_PRESS_NUM];//横のプレス機
 	Player* m_player;					//プレイヤー
 	Camera* m_camera;					//カメラ
+	Switch* m_switch;					//スイッチ
+
 	int m_press_count;					//プレス機のカウント
 	int m_burner_count;					//バーナーのカウント
 	int m_side_press_count;					//横のプレス機のカウント
@@ -73,4 +78,6 @@ public:
 	void MapDownDecison();	//マップチップとの下の当たり判定
 	void MapSideDecison();	//マップチップとの横の当たり判定
 	void MapJumpDecison();	//マップチップとの上の当たり判定
+	bool CollisionSwitch();	//スイッチとプレイヤーの当たり判定
+	//bool CollisionPress();	//プレス機とプレイヤーの当たり判定
 };

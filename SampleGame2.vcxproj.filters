@@ -20,6 +20,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
+    <ClCompile Include="Game\Switch.cpp" />
+    <ClCompile Include="Game\Wind.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADX2Le.h" />
@@ -43,6 +45,8 @@
     <ClInclude Include="MemoryLeakDetector.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Game\Camera.h" />
+    <ClInclude Include="Game\Switch.h" />
+    <ClInclude Include="Game\Wind.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="myfile.spritefont" />
