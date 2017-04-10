@@ -53,7 +53,7 @@ void Player::Move()
 	if (g_key.Left)
 		m_spd_x = -PLAYER_MOVE_POW;
 	//ƒWƒƒƒ“ƒv
-	if (g_keyTracker->pressed.Up && !m_jump_flag)
+	if (g_keyTracker->pressed.Up && !m_jump_flag && m_grp_h == PLAYER_GRP)
 	{
 		m_spd_y = PLAYER_JUMP_POW;
 		m_jump_flag = true;
