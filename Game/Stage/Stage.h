@@ -94,8 +94,8 @@ public:
 	void CollisionPress();					//プレス機とプレイヤーの当たり判定
 	bool CollisionBurner(int i);			//バーナーとプレイヤーの当たり判定
 	bool CollisionWater(int i);				//水とプレーヤーとの当たり判定
-	bool CollisionGoal();				//ゴールとプレーヤーとの当たり判定
-	bool CollisionSwitch();	//スイッチとプレイヤーの当たり判定
-	void CollisionWind();	//風とプレイヤーの当たり判定
-	void CollisionSidePress();	//横のプレス機とプレイヤーの当たり判定
+	bool CollisionGoal();					//ゴールとプレーヤーとの当たり判定
+	bool CollisionSwitch();					//スイッチとプレイヤーの当たり判定
+	void CollisionWind();					//風とプレイヤーの当たり判定
+	void CollisionSidePress();				//横のプレス機とプレイヤーの当たり判定
 };
