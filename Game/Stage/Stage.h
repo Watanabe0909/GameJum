@@ -63,6 +63,7 @@ private:
 	static const float HALF_UP;				//半分上げる
 	static const int MAX_WIND_NUM = 6;		//プレス機の数
 	static const int WIND_RANGE = 6;		//風の範囲
+	static const int MAP_SIZE_HEIGHT = 490;	//画面の縦の長さ
 	int m_map[MAP_HEIGHT][MAP_WIDTH];		//マップ
 	Texture* m_map_image;					//マップの画像
 	Press* m_press[MAX_PRESS_NUM];			//プレス機
@@ -98,4 +99,5 @@ public:
 	bool CollisionSwitch();					//スイッチとプレイヤーの当たり判定
 	void CollisionWind();					//風とプレイヤーの当たり判定
 	void CollisionSidePress();				//横のプレス機とプレイヤーの当たり判定
+	void DownMapPlayer();					//プレイヤーがマップから落ちた時の判定
 };

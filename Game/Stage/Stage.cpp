@@ -302,6 +302,9 @@ void Stage::Update()
 	//横のプレス機
 	CollisionSidePress();
 	m_press_flag = false;	//プレスされていない
+
+	//プレイヤーがマップから落ちた時の判定
+	DownMapPlayer();
 }
 
 //----------------------------------------------------------------------
@@ -956,4 +959,19 @@ bool Stage::CollisionGoal()
 	}
 
 	return false;
+}
+
+//----------------------------------------------------------------------
+//! @brief　プレイヤーがマップから落ちた時の判定
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Stage::DownMapPlayer()
+{
+	if (m_player->GetPosY() > MAP_SIZE_HEIGHT)		//プレイヤーが画面下に行ったら
+	{
+		g_NextScene = OVER;
+	}
 }
