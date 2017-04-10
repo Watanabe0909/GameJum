@@ -61,7 +61,12 @@ Stage::Stage()
 				break;
 				//スイッチの生成
 			case SWITCH:
-				m_switch = new Switch(j * CHIPSIZE, i*CHIPSIZE);
+				m_switch = new Switch(j * CHIPSIZE, i * CHIPSIZE);
+				break;
+				//スイッチの生成
+			case WIND:
+				m_wind[m_wind_count] = new Wind(j * CHIPSIZE, i * CHIPSIZE);
+				m_wind_count++;
 				break;
 			default:
 				break;
@@ -100,6 +105,12 @@ Stage::~Stage()
 	m_camera = nullptr;
 	delete m_switch;	//スイッチ
 	m_switch = nullptr;
+	for (int i = 0; i < m_wind_count; i++)
+	{
+		delete m_wind[i];		//風
+		m_wind[i] = nullptr;
+	}
+
 }
 
 //----------------------------------------------------------------------
@@ -156,6 +167,10 @@ void Stage::DrawStage()
 				break;
 				//スイッチ
 			case SWITCH:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
+				//風
+			case WIND:
 				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
 			default:
@@ -222,6 +237,8 @@ void Stage::Update()
 	//スイッチ
 	if (CollisionSwitch())
 		m_switch->Swtiching();	//スイッチのオンオフの切り替え
+
+	CollisionWind();	//風とプレイヤーの当たり判定
 }
 
 //----------------------------------------------------------------------
@@ -251,6 +268,11 @@ void Stage::ObjectDraw()
 	m_player->Render(m_camera->GetPosX());
 	//スイッチ
 	m_switch->Render(m_camera->GetPosX());
+	//風
+	for (int i = 0; i < m_wind_count; i++)
+	{
+		m_wind[i]->Render(m_camera->GetPosX());
+	}
 	
 }
 
@@ -644,4 +666,81 @@ bool Stage::CollisionSwitch()
 //	return false;
 //}
 
+//----------------------------------------------------------------------
+//! @brief 風とプレイヤーの当たり判定
+//!
+//! @param[in] 比較をするオブジェクトを２つ
+//!
+//! @return 当たっているとき１、当たっていないとき０
+//----------------------------------------------------------------------
+void Stage::CollisionWind()
+{
+	int loop_grp_h = 0;
+	int loop_grp_h2 = 0;
+	int map_x;
+	int map_y[WIND_RANGE];
+	int one_map_y;
+	
+	//左下
+	map_x = floor((m_player->GetPosX() + SHIFTED_POS) / CHIPSIZE);
+	one_map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
+	for (int i = 0; i < WIND_RANGE; i++)
+	{
+		loop_grp_h += m_player->GetGrpH();
+		map_y[i] = floor((m_player->GetPosY() + loop_grp_h) / CHIPSIZE);
+		if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y[i] >= 0 && map_y[i] < MAP_HEIGHT))
+		{
+			//マップチップが壁またはスイッチの時
+			if (m_map[map_y[i]+2][map_x] == WIND)
+			{
+				if (m_player->GetPosY() + m_player->GetGrpH() > map_y[i] * CHIPSIZE)
+				{
+					////プレイヤーが普通の状態
+					//if (PLAYER_DEFAULT)
+					//	m_player->SetPosY((one_map_y - 1)*CHIPSIZE);
+					//プレイヤーが横長の状態
+					if (PLAYER_HORIZONTAL)
+						m_player->SetPosY(((float)map_y[i] - HALF_UP - 3) * CHIPSIZE);
+					////プレイヤーが縦長の状態
+					//else if (PLAYER_VERTICAL)
+					//	m_player->SetPosY((one_map_y - 1) * CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
 
+			}
+		}
+	}
+	
+	
+	//右下
+	map_x = floor((m_player->GetPosX() + m_player->GetGrpW() - SHIFTED_POS) / CHIPSIZE);
+	one_map_y = floor((m_player->GetPosY() + m_player->GetGrpH()) / CHIPSIZE);
+	for (int i = 0; i < WIND_RANGE; i++)
+	{
+		loop_grp_h2 += m_player->GetGrpH();
+		map_y[i] = floor((m_player->GetPosY() + loop_grp_h2) / CHIPSIZE);
+		if ((map_x >= 0 && map_x < MAP_WIDTH) && (map_y >= 0 && map_y[i] < MAP_HEIGHT))
+		{
+			//マップチップが壁またはスイッチの時
+			if (m_map[map_y[i]+2][map_x] == WIND)
+			{
+				if (m_player->GetPosY() + m_player->GetGrpH() > map_y[i] * CHIPSIZE)
+				{
+					////プレイヤーが普通の状態
+					//if (PLAYER_DEFAULT)
+					//	m_player->SetPosY((one_map_y - 1) * CHIPSIZE);
+					//プレイヤーが横長の状態
+					if (PLAYER_HORIZONTAL)
+						m_player->SetPosY(((float)map_y[i] - HALF_UP - 3) * CHIPSIZE);
+					////プレイヤーが縦長の状態
+					//else if (PLAYER_VERTICAL)
+					//	m_player->SetPosY((one_map_y - 1)*CHIPSIZE);
+					m_player->SetSpdY(0);
+					m_player->Ground();
+				}
+			}
+		}
+	}
+
+}

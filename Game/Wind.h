@@ -19,10 +19,8 @@ class Wind : public ObjectBase
 {
 private:
 	static const int M_WIND_GRP = 32;
-	static const int M_WIND_GRP2 = 64;
-	static const int M_WIND_POS = 32 * 11;
 	
 public:
-	Wind();
+	Wind(int pos_x, int pos_y);
 	~Wind();
 };

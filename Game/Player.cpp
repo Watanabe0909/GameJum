@@ -10,6 +10,9 @@
 
 #include "Player.h"
 
+//定数
+const float Player::PLAYER_HALF_GRAVITY = 0.5;
+
 //----------------------------------------------------------------------
 //! @brief コンストラクタ
 //!
@@ -24,6 +27,7 @@ Player::Player(int pos_x, int pos_y)
 	m_grp_y = 0;		//元画像のgrp_y
 	m_grp_w = PLAYER_GRP;		//元画像のgrp_w
 	m_grp_h = PLAYER_GRP;		//元画像のgrp_h
+	m_state = 0;
 }
 
 //----------------------------------------------------------------------
@@ -59,12 +63,15 @@ void Player::Move()
 		m_jump_flag = true;
 	}
 	//重力
+
 	m_spd_y += PLAYER_GRAVITY;
 	//エリア外に行かないようにする
 	if (m_pos_x <= 0)
 	{
 		m_pos_x = 0;
 	}
+	
+	
 }
 
 //----------------------------------------------------------------------

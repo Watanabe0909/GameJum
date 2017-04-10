@@ -18,15 +18,15 @@
 //!
 //! @return ‚È‚µ
 //----------------------------------------------------------------------
-Wind::Wind()
+Wind::Wind(int pos_x, int pos_y)
 {
 	m_handle = new Texture(L"Resources\\Images\\PongImage.png");
 	m_grp_x = M_WIND_GRP;
 	m_grp_y = 0;
-	m_grp_w = M_WIND_GRP2;
-	m_grp_h = M_WIND_GRP2;
-	m_pos_x = M_WIND_POS;
-	m_pos_y = M_WIND_POS;
+	m_grp_w = M_WIND_GRP;
+	m_grp_h = M_WIND_GRP;
+	m_pos_x = pos_x;
+	m_pos_y = pos_y;
 }
 
 //----------------------------------------------------------------------
