@@ -62,6 +62,7 @@ private:
 	int m_press_count;					//プレス機のカウント
 	int m_burner_count;					//バーナーのカウント
 	int m_side_press_count;					//横のプレス機のカウント
+	bool m_press_flag;					//プレス用のフラグ
 	void ImportData(std::string filename);	//csvファイルからの読み込み
 public:
 	Stage();			//コンストラクタ
@@ -73,6 +74,7 @@ public:
 	void MapDownDecison();	//マップチップとの下の当たり判定
 	void MapSideDecison();	//マップチップとの横の当たり判定
 	void MapJumpDecison();	//マップチップとの上の当たり判定
-	bool CollisionPress();	//プレス機とプレイヤーの当たり判定
 	bool CollisionBurner();	//バーナーとプレイヤーの当たり判定
+	void CollisionPress();	//プレス機とプレイヤーの当たり判定
+	void CollisionSidePress();	//横のプレス機とプレイヤーの当たり判定
 };

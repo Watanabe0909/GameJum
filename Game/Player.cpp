@@ -80,32 +80,14 @@ void Player::Ground()
 }
 
 //----------------------------------------------------------------------
-//! @brief プレイヤーの大きさを変える
+//! @brief プレイヤーの高さを変える
 //!
 //! @param[in] なし
 //!
 //! @return なし
 //----------------------------------------------------------------------
-void Player::ChangePlayer()
+void Player::ChangePlayerH()
 {
-	//if (m_grp_h == PLAYER_GRP && g_keyTracker->pressed.A)
-	//{
-	//	m_grp_h = PLAYER_GRP / 2;
-	//	m_grp_w = PLAYER_GRP;
-	//}
-	//else if (m_grp_h == PLAYER_GRP / 2 && g_keyTracker->pressed.A)
-	//{
-	//	m_grp_h = PLAYER_GRP;
-	//}
-	//if (m_grp_w == PLAYER_GRP && g_keyTracker->pressed.S)
-	//{
-	//	m_grp_w = PLAYER_GRP / 2;
-	//	m_grp_h = PLAYER_GRP;
-	//}
-	//else if (m_grp_w == PLAYER_GRP / 2 && g_keyTracker->pressed.S)
-	//{
-	//	m_grp_w = PLAYER_GRP;
-	//}
 
 	if (m_grp_h == PLAYER_GRP)
 	{
@@ -113,6 +95,22 @@ void Player::ChangePlayer()
 		m_grp_w = PLAYER_GRP;
 	}
 
+}
+
+//----------------------------------------------------------------------
+//! @brief プレイヤーの幅を変える
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//----------------------------------------------------------------------
+void Player::ChangePlayerW()
+{
+	if (m_grp_w == PLAYER_GRP)
+	{
+		m_grp_w = PLAYER_GRP / 2;
+		m_grp_h = PLAYER_GRP;
+	}
 }
 
 //----------------------------------------------------------------------

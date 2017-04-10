@@ -24,6 +24,7 @@ public:
 	~Player();			//デストラクタ
 	void Move();		//移動
 	void Ground();		//地面についている
-	void ChangePlayer();//プレイヤーの大きさを変える
+	void ChangePlayerH();//プレイヤーの高さを変える
+	void ChangePlayerW();//プレイヤーの幅を変える
 	bool GetJump();		//ジャンプしているかどうか
 };
