@@ -19,6 +19,7 @@ class Over :public GameBase
 private:
 	Texture *m_over_image;					//	ゲームオーバー画像
 	Texture *m_over_image2;					//	ゲームオーバー画像２
+	Texture *m_back_image;					//	背景(黒)画像
 	bool m_fade_flag;						//	フェード用フラグ				
 	DirectX::SimpleMath::Color color;		//	フェード用変数
 	float m_alfa;							//	画像の透明度用変数

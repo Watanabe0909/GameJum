@@ -9,6 +9,7 @@
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 
 #include "Stage.h"
+#include "..\GameMain.h"
 #include <fstream>
 #include <sstream>
 #include <SimpleMath.h>
@@ -52,7 +53,7 @@ Stage::Stage()
 				break;
 				//バーナーの生成
 			case BURNER:
-				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE);
+				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE - CHIPSIZE / 2);
 				m_burner_count++;
 				break;
 				//プレイヤーの生成
@@ -193,6 +194,15 @@ void Stage::Update()
 	MapDownDecison();	//マップチップとの下の当たり判定
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
+
+	//	バーナーと当たっていたらゲームオーバー
+	if (m_burner[m_burner_count - 1]->GetState() == 1)
+	{
+		if (CollisionBurner())
+		{
+			g_NextScene = OVER;
+		}
+	}
 }
 
 //----------------------------------------------------------------------
@@ -493,7 +503,6 @@ void Stage::MapSideDecison()
 //!
 //! @return なし
 //----------------------------------------------------------------------
-
 void Stage::MapJumpDecison()
 {
 	int map_x;
@@ -563,4 +572,27 @@ void Stage::MapJumpDecison()
 			}
 		}
 	}
+}
+
+//----------------------------------------------------------------------
+//! @brief　プレイヤーとバーナーとの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return false:当たっていない, true:当たっている
+//----------------------------------------------------------------------
+bool Stage::CollisionBurner()
+{
+	//	短形での当たり判定
+	if (
+		(m_player->GetPosX() <= m_burner[m_burner_count - 1]->GetPosX() + m_burner[m_burner_count - 1]->GetGrpW()) &&
+		(m_player->GetPosX() + m_player->GetGrpW() >= m_burner[m_burner_count - 1]->GetPosX()) &&
+		(m_player->GetPosY() <= m_burner[m_burner_count - 1]->GetPosY() + m_burner[m_burner_count - 1]->GetGrpH()) &&
+		(m_player->GetPosY() + m_player->GetGrpH() >= m_burner[m_burner_count - 1]->GetPosY())
+		)
+	{
+		return true;
+	}
+
+	return false;
 }

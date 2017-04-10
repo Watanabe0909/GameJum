@@ -28,6 +28,9 @@ Over::Over()
 	m_over_image = new Texture(L"Resources\\Images\\gameover.png");
 	m_over_image2 = new Texture(L"Resources\\Images\\gameover2.png");
 
+	//	”wŒi(•)‚Ì‰Šú‰»
+	m_back_image = new Texture(L"Resources\\Images\\back.png");
+
 	//	ƒtƒF[ƒh—p•Ï”‚Ì‰Šú‰»
 	m_fade_flag = false;
 	m_alfa = 1.0f;
@@ -107,6 +110,9 @@ void Over::Update()
 //----------------------------------------------------------------------
 void Over::Render()
 {
+	//	‰æ‘œ‚Ì•`‰æ
+	g_spriteBatch->Draw(m_back_image->m_pTexture, Vector2(0, 0));
+
 	if (m_count <= 20)
 	{
 		//	‰æ‘œ‚Ì•`‰æ
