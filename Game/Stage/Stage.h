@@ -56,30 +56,30 @@ private:
 	static const int MAX_TIP = 1350;		//マップチップの数
 	static const int CHIPSIZE = 32;			//マップチップの大きさ
 	static const int MAX_PRESS_NUM = 5;		//プレス機の数
-	static const int MAX_BURNER_NUM = 5;	//バーナーの数
+	static const int MAX_BURNER_NUM = 6;	//バーナーの数
 	static const int MAX_WATER_NUM = 5;		//水のオブジェクト数
 	static const int SHIFTED_POS = 10;		//座標をズラす
 	static const int SCREEN_WIDTH = 640;	//画面の幅
 	static const float HALF_UP;				//半分上げる
-	static const int MAX_WIND_NUM = 5;	//プレス機の数
-	static const int WIND_RANGE = 5;	//風の範囲
+	static const int MAX_WIND_NUM = 6;		//プレス機の数
+	static const int WIND_RANGE = 6;		//風の範囲
 	int m_map[MAP_HEIGHT][MAP_WIDTH];		//マップ
 	Texture* m_map_image;					//マップの画像
 	Press* m_press[MAX_PRESS_NUM];			//プレス機
 	Burner* m_burner[MAX_BURNER_NUM];		//バーナー
 	Water* m_water[MAX_WATER_NUM];			//水
 	Goal* m_goal;							//ゴール
-	SidePress* m_side_press[MAX_PRESS_NUM];//横のプレス機
+	SidePress* m_side_press[MAX_PRESS_NUM];	//横のプレス機
 	Player* m_player;						//プレイヤー
 	Camera* m_camera;						//カメラ
-	Switch* m_switch;					//スイッチ
-	Wind* m_wind[MAX_WIND_NUM];			//風
+	Switch* m_switch;						//スイッチ
+	Wind* m_wind[MAX_WIND_NUM];				//風
 	int m_press_count;						//プレス機のカウント
 	int m_burner_count;						//バーナーのカウント
 	int m_water_count;						//水のオブジェクトのカウント
 	int m_side_press_count;					//横のプレス機のカウント
-	int m_wind_count;					//風のカウント
-	bool m_press_flag;					//プレス用のフラグ
+	int m_wind_count;						//風のカウント
+	bool m_press_flag;						//プレス用のフラグ
 	void ImportData(std::string filename);	//csvファイルからの読み込み
 public:
 	Stage();								//コンストラクタ
