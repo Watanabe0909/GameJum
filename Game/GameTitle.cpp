@@ -15,6 +15,9 @@
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
+//	定数の代入
+const float Title::ALFA_COUNT = 0.01f;
+
 //----------------------------------------------------------------------
 //! @brief コンストラクタ
 //!
@@ -74,7 +77,7 @@ void Title::Update()
 	//	フェードフラグがtrueなら透明度を上げる
 	if (m_fade_flag == true)
 	{
-		m_alfa -= 0.01f;
+		m_alfa -= ALFA_COUNT;
 	}
 	else
 	{
@@ -83,7 +86,7 @@ void Title::Update()
 	}
 
 	//	カウントが40を超えたら0に戻す
-	if (m_count > 40)
+	if (m_count > MAX_FLASH_COUNT)
 	{
 		m_count = 0;
 	}
@@ -108,7 +111,7 @@ void Title::Render()
 	//	画像の描画
 	g_spriteBatch->Draw(m_back_image->m_pTexture, Vector2(0, 0));
 
-	if (m_count <= 20)
+	if (m_count <= FLASH_COUNT)
 	{
 		//	画像の描画
 		g_spriteBatch->Draw(m_title_image->m_pTexture, Vector2(0, 0), Color(1.0f, 1.0f, 1.0f, m_alfa));

@@ -23,6 +23,9 @@ private:
 	DirectX::SimpleMath::Color color;		//	フェード用変数
 	float m_alfa;							//	画像の透明度用変数
 	int m_count;							//	カウント
+	static const float ALFA_COUNT;			//	フェード用カウント
+	static const int MAX_FLASH_COUNT = 40;	//	点滅用カウント
+	static const int FLASH_COUNT = 20;		//	点滅用カウント
 
 public:
 	Title();					//	コンストラクタ

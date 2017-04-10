@@ -20,6 +20,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
+    <ClCompile Include="Game\Object\Water.cpp" />
+    <ClCompile Include="Game\Object\Goal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADX2Le.h" />
@@ -43,6 +45,8 @@
     <ClInclude Include="MemoryLeakDetector.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Game\Camera.h" />
+    <ClInclude Include="Game\Object\Water.h" />
+    <ClInclude Include="Game\Object\Goal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="myfile.spritefont" />

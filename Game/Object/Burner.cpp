@@ -18,10 +18,10 @@ Burner::Burner(int pos_x, int pos_y)
 	:m_count(0)
 {
 	m_handle = new Texture(L"Resources\\Images\\Burner.png");	//画像
-	m_pos_x = pos_x;	//x座標
-	m_pos_y = pos_y;	//y座標
-	m_grp_x = 0;		//元画像のgrp_x
-	m_grp_y = 0;		//元画像のgrp_y
+	m_pos_x = pos_x;			//x座標
+	m_pos_y = pos_y;			//y座標
+	m_grp_x = 0;				//元画像のgrp_x
+	m_grp_y = 0;				//元画像のgrp_y
 	m_grp_w = BURNER_GRP_W;		//元画像のgrp_w
 	m_grp_h = BURNER_GRP_H;		//元画像のgrp_h
 	m_state = false;

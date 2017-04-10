@@ -60,6 +60,15 @@ Stage::Stage()
 			case PLAYER:
 				m_player = new Player(j * CHIPSIZE, i * CHIPSIZE);
 				break;
+				//水の生成
+			case WATER:
+				m_water[m_water_count] = new Water(j * CHIPSIZE, i * CHIPSIZE + CHIPSIZE / 2);
+				m_water_count++;
+				break;
+				//ゴールの生成
+			case GOAL:
+				m_goal = new Goal(j * CHIPSIZE, i * CHIPSIZE);
+				break;
 			default:
 				break;
 			}
@@ -91,6 +100,13 @@ Stage::~Stage()
 		delete m_burner[i];	//バーナー
 		m_burner[i] = nullptr;
 	}
+	for (int i = 0; i < m_water_count; i++)
+	{
+		delete m_water[i];	//水
+		m_water[i] = nullptr;
+	}
+	delete m_goal;		//ゴール
+	m_goal = nullptr;
 	delete m_player;	//プレイヤー
 	m_player = nullptr;
 	delete m_camera;	//カメラ
@@ -132,6 +148,11 @@ void Stage::DrawStage()
 				break;
 				//水
 			case WATER:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
+				break;
+				//ゴール
+			case GOAL:
+				DrawSprite(0, 0, CHIPSIZE, CHIPSIZE, i, j);
 				break;
 				//プレス機
 			case PRESS:
@@ -203,22 +224,34 @@ void Stage::Update()
 			m_player->ChangePlayer();
 		}
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
 	//	バーナーと当たっていたらゲームオーバー
-	if (m_burner[m_burner_count - 1]->GetState() == 1)
+	for (int i = 0; i < m_burner_count; i++)
 	{
-		if (CollisionBurner())
+		if (m_burner[i]->GetState() == 1)
 		{
-			g_NextScene = OVER;
-<<<<<<< HEAD
-=======
-
->>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
+			if (CollisionBurner(i))
+			{
+				g_NextScene = OVER;
+			}
 		}
 	}
+
+	//	水と当たっていたらゲームオーバー
+	for (int i = 0; i < m_water_count; i++)
+	{
+		if (CollisionWater(i))
+		{
+			//g_NextScene = OVER;
+		}
+	}
+
+	//	ゴールと当たっていたらゲームクリア
+	if (CollisionGoal())
+	{
+		g_NextScene = CLEAR;
+	}
+
 }
 
 //----------------------------------------------------------------------
@@ -244,8 +277,16 @@ void Stage::ObjectDraw()
 		if (m_burner[i]->GetState() == true)
 			m_burner[i]->Render(m_camera->GetPosX());
 	}
+
+	//水
+	for (int i = 0; i < m_water_count; i++)
+		m_water[i]->Render(m_camera->GetPosX());
+
 	//プレイヤー
 	m_player->Render(m_camera->GetPosX());
+
+	//ゴール
+	m_goal->Render(m_camera->GetPosX());
 
 }
 
@@ -610,25 +651,22 @@ bool Stage::CollisionPress()
 	}
 	return false;
 }
-<<<<<<< HEAD
-=======
 
 //----------------------------------------------------------------------
->>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
 //! @brief　プレイヤーとバーナーとの当たり判定
 //!
 //! @param[in] なし
 //!
 //! @return false:当たっていない, true:当たっている
 //----------------------------------------------------------------------
-bool Stage::CollisionBurner()
+bool Stage::CollisionBurner(int i)
 {
 	//	短形での当たり判定
 	if (
-		(m_player->GetPosX() <= m_burner[m_burner_count - 1]->GetPosX() + m_burner[m_burner_count - 1]->GetGrpW()) &&
-		(m_player->GetPosX() + m_player->GetGrpW() >= m_burner[m_burner_count - 1]->GetPosX()) &&
-		(m_player->GetPosY() <= m_burner[m_burner_count - 1]->GetPosY() + m_burner[m_burner_count - 1]->GetGrpH()) &&
-		(m_player->GetPosY() + m_player->GetGrpH() >= m_burner[m_burner_count - 1]->GetPosY())
+		(m_player->GetPosX() <= m_burner[i]->GetPosX() + m_burner[i]->GetGrpW()) &&
+		(m_player->GetPosX() + m_player->GetGrpW() >= m_burner[i]->GetPosX()) &&
+		(m_player->GetPosY() <= m_burner[i]->GetPosY() + m_burner[i]->GetGrpH()) &&
+		(m_player->GetPosY() + m_player->GetGrpH() >= m_burner[i]->GetPosY())
 		)
 	{
 		return true;
@@ -636,7 +674,49 @@ bool Stage::CollisionBurner()
 
 	return false;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
+//----------------------------------------------------------------------
+//! @brief　プレイヤーと水との当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return false:当たっていない, true:当たっている
+//----------------------------------------------------------------------
+bool Stage::CollisionWater(int i)
+{
+	//	短形での当たり判定
+	if (
+		(m_player->GetPosX() <= m_water[i]->GetPosX() + m_water[i]->GetGrpW()) &&
+		(m_player->GetPosX() + m_player->GetGrpW() >= m_water[i]->GetPosX()) &&
+		(m_player->GetPosY() <= m_water[i]->GetPosY() + m_water[i]->GetGrpH()) &&
+		(m_player->GetPosY() + m_player->GetGrpH() >= m_water[i]->GetPosY())
+		)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+//----------------------------------------------------------------------
+//! @brief　プレイヤーとゴールとの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return false:当たっていない, true:当たっている
+//----------------------------------------------------------------------
+bool Stage::CollisionGoal()
+{
+	//	短形での当たり判定
+	if (
+		(m_player->GetPosX() <= m_goal->GetPosX() + m_goal->GetGrpW()) &&
+		(m_player->GetPosX() + m_player->GetGrpW() >= m_goal->GetPosX()) &&
+		(m_player->GetPosY() <= m_goal->GetPosY() + m_goal->GetGrpH()) &&
+		(m_player->GetPosY() + m_player->GetGrpH() >= m_goal->GetPosY())
+		)
+	{
+		return true;
+	}
+
+	return false;
+}
