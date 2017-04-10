@@ -194,7 +194,6 @@ void Stage::Update()
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
 
-<<<<<<< HEAD
 	//	ジャンプしているなら
 	if (!m_player->GetJump())
 	{
@@ -202,14 +201,14 @@ void Stage::Update()
 		if (CollisionPress())
 		{
 			m_player->ChangePlayer();
-=======
+		}
+	}
 	//	バーナーと当たっていたらゲームオーバー
 	if (m_burner[m_burner_count - 1]->GetState() == 1)
 	{
 		if (CollisionBurner())
 		{
 			g_NextScene = OVER;
->>>>>>> b23c58f53c56f09b289030b29347a12b2c1e4efa
 		}
 	}
 }
@@ -584,7 +583,6 @@ void Stage::MapJumpDecison()
 }
 
 //----------------------------------------------------------------------
-<<<<<<< HEAD
 //! @brief プレス機とプレイヤーの当たり判定
 //!
 //! @param[in] なし
@@ -604,7 +602,6 @@ bool Stage::CollisionPress()
 	}
 	return false;
 }
-=======
 //! @brief　プレイヤーとバーナーとの当たり判定
 //!
 //! @param[in] なし
@@ -626,4 +623,3 @@ bool Stage::CollisionBurner()
 
 	return false;
 }
->>>>>>> b23c58f53c56f09b289030b29347a12b2c1e4efa
