@@ -47,12 +47,12 @@ void Press::Move()
 	m_count++;
 	//‰ºˆÚ“®
 	if (m_count < MOVE_COUNT / 2)
-		m_spd_y = 1;
+		m_spd_y = 1.0f;
 	//ãˆÚ“®
 	if (m_count > MOVE_COUNT / 2)
-		m_spd_y = -1;
+		m_spd_y = -1.0f;
 	//reset
-	if (m_count > MOVE_COUNT)
+	if (m_count >= MOVE_COUNT)
 		m_count = 0;
 
 }

@@ -9,6 +9,7 @@
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 
 #include "Stage.h"
+#include "..\GameMain.h"
 #include <fstream>
 #include <sstream>
 #include <SimpleMath.h>
@@ -41,7 +42,7 @@ Stage::Stage()
 			{
 				//プレス機の生成
 			case PRESS:
-				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE);
+				m_press[m_press_count] = new Press(j * CHIPSIZE, i* CHIPSIZE - CHIPSIZE / 2);
 				m_press_count++;
 				break;
 				//横のプレス機の生成
@@ -52,7 +53,7 @@ Stage::Stage()
 				break;
 				//バーナーの生成
 			case BURNER:
-				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE);
+				m_burner[m_burner_count] = new Burner(j * CHIPSIZE, i * CHIPSIZE - CHIPSIZE / 2);
 				m_burner_count++;
 				break;
 				//プレイヤーの生成
@@ -229,7 +230,6 @@ void Stage::Update()
 	//プレイヤー
 	m_player->Move();	//移動
 	m_player->Update(); //座標変更
-	m_player->ChangePlayer();
 	MapDownDecison();	//マップチップとの下の当たり判定
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
@@ -239,6 +239,26 @@ void Stage::Update()
 		m_switch->Swtiching();	//スイッチのオンオフの切り替え
 
 	CollisionWind();	//風とプレイヤーの当たり判定
+	//	ジャンプしているなら
+	if (!m_player->GetJump())
+	{
+		//	プレスとプレイヤーが当たっていたらプレイヤーの大きさを変える
+		if (CollisionPress())
+		{
+			m_player->ChangePlayer();
+		}
+	}
+
+	//	バーナーと当たっていたらゲームオーバー
+	if (m_burner[m_burner_count - 1]->GetState() == 1)
+	{
+		if (CollisionBurner())
+		{
+			g_NextScene = OVER;
+
+		}
+	}
+
 }
 
 //----------------------------------------------------------------------
@@ -546,7 +566,6 @@ void Stage::MapSideDecison()
 //!
 //! @return なし
 //----------------------------------------------------------------------
-
 void Stage::MapJumpDecison()
 {
 	int map_x;
@@ -617,6 +636,7 @@ void Stage::MapJumpDecison()
 		}
 	}
 }
+
 
 
 //----------------------------------------------------------------------
@@ -744,3 +764,49 @@ void Stage::CollisionWind()
 	}
 
 }
+
+//----------------------------------------------------------------------
+//! @brief プレス機とプレイヤーの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return 当たっているかどうか
+//----------------------------------------------------------------------
+bool Stage::CollisionPress()
+{
+	for (int i = 0; i < m_press_count; i++)
+	{
+		if (m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
+			m_press[i]->GetPosX() + m_press[i]->GetGrpW() > m_player->GetPosX() &&
+			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+//----------------------------------------------------------------------
+//! @brief　プレイヤーとバーナーとの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return false:当たっていない, true:当たっている
+//----------------------------------------------------------------------
+bool Stage::CollisionBurner()
+{
+	//	短形での当たり判定
+	if (
+		(m_player->GetPosX() <= m_burner[m_burner_count - 1]->GetPosX() + m_burner[m_burner_count - 1]->GetGrpW()) &&
+		(m_player->GetPosX() + m_player->GetGrpW() >= m_burner[m_burner_count - 1]->GetPosX()) &&
+		(m_player->GetPosY() <= m_burner[m_burner_count - 1]->GetPosY() + m_burner[m_burner_count - 1]->GetGrpH()) &&
+		(m_player->GetPosY() + m_player->GetGrpH() >= m_burner[m_burner_count - 1]->GetPosY())
+		)
+	{
+		return true;
+	}
+
+	return false;
+}
+
