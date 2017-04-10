@@ -795,7 +795,8 @@ void Stage::CollisionSidePress()
 		//左
 		if (m_player->GetPosX() + m_player->GetGrpW() > m_side_press[i]->GetPosX() &&
 			m_player->GetPosY() > m_side_press[i]->GetPosY() &&
-			m_side_press[i]->GetPosY() + m_side_press[i]->GetGrpH() >= m_player->GetPosY() + m_player->GetGrpH())
+			m_side_press[i]->GetPosY() + m_side_press[i]->GetGrpH() >= m_player->GetPosY() + m_player->GetGrpH() &&
+			m_side_press[i]->GetPosX() > m_player->GetPosX())
 		{
 			m_player->SetPosX(m_side_press[i]->GetPosX() - m_player->GetGrpW());	//座標
 			m_player->SetSpdX(0);	//スピード

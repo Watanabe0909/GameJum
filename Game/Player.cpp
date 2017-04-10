@@ -20,7 +20,7 @@ const float Player::PLAYER_HALF_GRAVITY = 0.5;
 //----------------------------------------------------------------------
 Player::Player(int pos_x, int pos_y)
 {
-	m_handle = new Texture(L"Resources\\Images\\PongImage.png");	//画像
+	m_handle = new Texture(L"Resources\\Images\\runas.png");	//画像
 	m_pos_x = pos_x;	//x座標
 	m_pos_y = pos_y;	//y座標
 	m_grp_x = 0;		//元画像のgrp_x
@@ -57,7 +57,7 @@ void Player::Move()
 	if (g_key.Left)
 		m_spd_x = -PLAYER_MOVE_POW;
 	//ジャンプ
-	if (g_keyTracker->pressed.Up && !m_jump_flag)
+	if (g_keyTracker->pressed.Up && !m_jump_flag && m_grp_h == PLAYER_GRP)
 	{
 		m_spd_y = PLAYER_JUMP_POW;
 		m_jump_flag = true;
