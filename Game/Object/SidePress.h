@@ -17,9 +17,9 @@
 class SidePress : public ObjectBase
 {
 private:
-	static const int SIDEPRESS_GRP_W = 64;	//プレス機の幅
+	static const int SIDEPRESS_GRP_W = 128;	//プレス機の幅
 	static const int SIDEPRESS_GRP_H = 64; //プレス機の高さ
-	static const int CHANGE_MOVE_COUNT = 32;//移動の切り替えのカウント
+	static const int CHANGE_MOVE_COUNT = 120;//移動の切り替えのカウント
 	int m_count;						//カウント
 
 public:

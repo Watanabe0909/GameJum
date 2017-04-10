@@ -47,8 +47,7 @@ Stage::Stage()
 				break;
 				//横のプレス機の生成
 			case SIDEPRESS:
-				m_side_press[m_side_press_count] = new SidePress(j * CHIPSIZE, i* CHIPSIZE);
-				m_side_press[m_side_press_count]->SetState(m_side_press_count);
+				m_side_press[m_side_press_count] = new SidePress(j * CHIPSIZE + CHIPSIZE / 2, i* CHIPSIZE);
 				m_side_press_count++;
 				break;
 				//バーナーの生成
@@ -239,15 +238,6 @@ void Stage::Update()
 		m_switch->Swtiching();	//スイッチのオンオフの切り替え
 
 	CollisionWind();	//風とプレイヤーの当たり判定
-	//	ジャンプしているなら
-	if (!m_player->GetJump())
-	{
-		//	プレスとプレイヤーが当たっていたらプレイヤーの大きさを変える
-		if (CollisionPress())
-		{
-			m_player->ChangePlayer();
-		}
-	}
 
 	//	バーナーと当たっていたらゲームオーバー
 	if (m_burner[m_burner_count - 1]->GetState() == 1)
@@ -259,6 +249,11 @@ void Stage::Update()
 		}
 	}
 
+	//プレス機とプレイヤーの当たり判定
+	CollisionPress();
+	//横のプレス機
+	CollisionSidePress();
+	m_press_flag = false;	//プレスされていない
 }
 
 //----------------------------------------------------------------------
@@ -530,6 +525,7 @@ void Stage::MapSideDecison()
 			{
 				m_player->SetPosX((map_x + 1)* CHIPSIZE);
 				m_player->SetSpdX(0);
+				m_press_flag = true;
 			}
 		}
 		//マップチップが横長の壁の時
@@ -638,7 +634,6 @@ void Stage::MapJumpDecison()
 }
 
 
-
 //----------------------------------------------------------------------
 //! @brief スイッチとプレイヤーの当たり判定
 //!
@@ -663,28 +658,6 @@ bool Stage::CollisionSwitch()
 	return false;
 }
 
-////----------------------------------------------------------------------
-////! @brief プレス機とプレイヤーの当たり判定
-////!
-////! @param[in] なし
-////!
-////! @return 当たっているかどうか
-////----------------------------------------------------------------------
-//bool Stage::CollisionPress()
-//{
-//	float x1 = m_player->GetPosX() + m_player->GetGrpW() / 2;	//Aの中心座標x
-//	float y1 = m_player->GetPosY() + m_player->GetGrpH() / 2;	//Aの中心座標y
-//	float x2 = B.pos_x + B.grp_w / 2;	//Bの中心座標x
-//	float y2 = B.pos_y + B.grp_h / 2;	//Bの中心座標y
-//	float r1 = A.grp_w / 2;
-//	float r2 = B.grp_w / 2;
-//	//円の当たり判定
-//	if ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) <= (r1 + r2)*(r1 + r2))
-//	{
-//		return true;
-//	}
-//	return false;
-//}
 
 //----------------------------------------------------------------------
 //! @brief 風とプレイヤーの当たり判定
@@ -772,20 +745,74 @@ void Stage::CollisionWind()
 //!
 //! @return 当たっているかどうか
 //----------------------------------------------------------------------
-bool Stage::CollisionPress()
+void Stage::CollisionPress()
 {
 	for (int i = 0; i < m_press_count; i++)
 	{
-		if (m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
+		//左
+		if (m_player->GetPosY() > m_press[i]->GetPosY() &&
+			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY() + m_player->GetGrpH() &&
+			m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
+			m_player->GetPosX() < m_press[i]->GetPosX())
+		{
+			m_player->SetPosX(m_press[i]->GetPosX() - m_player->GetGrpW());	//座標
+			m_player->SetSpdX(0);	//スピード
+		}
+		//右
+		if (m_player->GetPosY() > m_press[i]->GetPosY() &&
+			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY() + m_player->GetGrpH() &&
+			m_player->GetPosX() < m_press[i]->GetPosX() + m_press[i]->GetGrpW() &&
+			m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() + m_press[i]->GetGrpW())
+		{
+			m_player->SetPosX(m_press[i]->GetPosX() + m_press[i]->GetGrpW());	//座標
+			m_player->SetSpdX(0);	//スピード
+		}
+		//下
+		else if (m_player->GetPosX() + m_player->GetGrpW() > m_press[i]->GetPosX() &&
 			m_press[i]->GetPosX() + m_press[i]->GetGrpW() > m_player->GetPosX() &&
 			m_press[i]->GetPosY() + m_press[i]->GetGrpH() > m_player->GetPosY())
 		{
-			return true;
+			m_player->SetPosY(m_press[i]->GetPosY() + m_press[i]->GetGrpH());	//座標
+			m_player->SetSpdY(0);	//スピード
+			//ジャンプしていないなら
+			if (!m_player->GetJump())
+				m_player->ChangePlayerH();	//潰す
 		}
 	}
-	return false;
 }
 
+//----------------------------------------------------------------------
+//! @brief 横のプレス機とプレイヤーの当たり判定
+//!
+//! @param[in] なし
+//!
+//! @return 当たっているかどうか
+//----------------------------------------------------------------------
+void Stage::CollisionSidePress()
+{
+	for (int i = 0; i < m_side_press_count; i++)
+	{
+		//左
+		if (m_player->GetPosX() + m_player->GetGrpW() > m_side_press[i]->GetPosX() &&
+			m_player->GetPosY() > m_side_press[i]->GetPosY() &&
+			m_side_press[i]->GetPosY() + m_side_press[i]->GetGrpH() >= m_player->GetPosY() + m_player->GetGrpH())
+		{
+			m_player->SetPosX(m_side_press[i]->GetPosX() - m_player->GetGrpW());	//座標
+			m_player->SetSpdX(0);	//スピード
+			if(m_press_flag)
+			m_player->ChangePlayerW();	//潰す
+		}
+		//上
+		if (m_player->GetPosX() + m_player->GetGrpW() > m_side_press[i]->GetPosX() &&
+			m_side_press[i]->GetPosX() + m_side_press[i]->GetGrpW() > m_player->GetPosX() &&
+			m_player->GetPosY() + m_player->GetGrpH() > m_side_press[i]->GetPosY())
+		{
+			m_player->SetPosY(m_side_press[i]->GetPosY() - m_player->GetGrpH());
+			m_player->SetSpdY(0);
+			m_player->Ground();
+		}
+	}
+}
 
 //----------------------------------------------------------------------
 //! @brief　プレイヤーとバーナーとの当たり判定
@@ -809,4 +836,3 @@ bool Stage::CollisionBurner()
 
 	return false;
 }
-
