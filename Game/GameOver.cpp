@@ -24,6 +24,11 @@ using namespace DirectX;
 //----------------------------------------------------------------------
 Over::Over()
 {
+	//鳴っているBGMを止める
+	ADX2Le::Stop;
+	//ゲームオーバーシーン中のBGM
+	ADX2Le::Play(CRI_CUESHEET_0_TOMOSHIBI);
+
 	//	ゲームオーバー画像の初期化
 	m_over_image = new Texture(L"Resources\\Images\\gameover.png");
 	m_over_image2 = new Texture(L"Resources\\Images\\gameover2.png");
@@ -71,7 +76,7 @@ void Over::Update()
 	//	Zキーを押したらタイトルシーンへ
 	if (g_keyTracker->pressed.Z)
 	{
-		ADX2Le::Play(CRI_CUESHEET_1_SE);
+		ADX2Le::Play(CRI_CUESHEET_0_SE);
 		m_fade_flag = true;
 	}
 

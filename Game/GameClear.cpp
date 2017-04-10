@@ -23,6 +23,11 @@ using namespace DirectX;
 //----------------------------------------------------------------------
 Clear::Clear()
 {
+	//鳴っているBGMを止める
+	ADX2Le::Stop;
+	//ゲームクリアシーン中のBGM
+	ADX2Le::Play(CRI_CUESHEET_0_SHOUKEI);
+
 	//	クリア画像の初期化
 	m_clear_image = new Texture(L"Resources\\Images\\clear.png");
 	m_clear_image2 = new Texture(L"Resources\\Images\\clear2.png");
@@ -67,7 +72,7 @@ void Clear::Update()
 	//	Zキーを押したらタイトルシーンへ
 	if (g_keyTracker->pressed.Z)
 	{
-		ADX2Le::Play(CRI_CUESHEET_1_SE);
+		ADX2Le::Play(CRI_CUESHEET_0_SE);
 		m_fade_flag = true;
 	}
 
