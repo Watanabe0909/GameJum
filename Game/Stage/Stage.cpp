@@ -203,12 +203,20 @@ void Stage::Update()
 			m_player->ChangePlayer();
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
 	//	バーナーと当たっていたらゲームオーバー
 	if (m_burner[m_burner_count - 1]->GetState() == 1)
 	{
 		if (CollisionBurner())
 		{
 			g_NextScene = OVER;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
 		}
 	}
 }
@@ -602,6 +610,11 @@ bool Stage::CollisionPress()
 	}
 	return false;
 }
+<<<<<<< HEAD
+=======
+
+//----------------------------------------------------------------------
+>>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
 //! @brief　プレイヤーとバーナーとの当たり判定
 //!
 //! @param[in] なし
@@ -623,3 +636,7 @@ bool Stage::CollisionBurner()
 
 	return false;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1203dcf3fdfd6dc39ddd5ae62781f8b1e3434b70
