@@ -700,11 +700,22 @@ void Stage::MapJumpDecison()
 //----------------------------------------------------------------------
 bool Stage::CollisionSwitch()
 {
-	float x1 = m_player->GetPosX() + m_player->GetGrpW() / 2;	//Aの中心座標x
+	float x1;
+	float r1;
+	if (PLAYER_VERTICAL)	//プレイヤーが縦長だったら
+	{
+		 x1 = m_player->GetPosX() + m_player->GetGrpW();	//Aの中心座標x
+		 r1 = m_player->GetGrpW();	
+	}
+	else
+	{
+		x1 = m_player->GetPosX() + m_player->GetGrpW() / 2;	//Aの中心座標x
+		r1 = m_player->GetGrpW() / 2;
+	}
+	
 	float y1 = m_player->GetPosY() + m_player->GetGrpH() / 2;	//Aの中心座標y
 	float x2 = m_switch->GetPosX() + m_switch->GetGrpW() / 2;	//Bの中心座標x
 	float y2 = m_switch->GetPosY() + m_switch->GetGrpH() / 2;	//Bの中心座標y
-	float r1 = m_player->GetGrpW() / 2;
 	float r2 = m_switch->GetGrpW() / 2;
 	//円の当たり判定
 	if ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) <= (r1 + r2)*(r1 + r2))
