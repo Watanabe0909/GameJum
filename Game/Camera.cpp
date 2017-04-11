@@ -55,4 +55,8 @@ void Camera::CameraMaxPos()
 	{
 		m_pos_x = SCREEN_WIDTH / 2;
 	}
+	if (m_pos_x >  32 * 90 - 320)
+	{
+		m_pos_x  =  32 * 90 -320;
+	}
 }

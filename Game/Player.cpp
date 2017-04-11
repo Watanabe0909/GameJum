@@ -28,6 +28,8 @@ Player::Player(int pos_x, int pos_y)
 	m_grp_w = PLAYER_GRP;		//Œ³‰æ‘œ‚Ìgrp_w
 	m_grp_h = PLAYER_GRP;		//Œ³‰æ‘œ‚Ìgrp_h
 	m_state = 0;
+	m_right_flag = true;
+	m_left_flag = false;
 }
 
 //----------------------------------------------------------------------
@@ -52,10 +54,18 @@ void Player::Move()
 	m_spd_x = 0;
 	//‰EˆÚ“®
 	if (g_key.Right)
+	{
 		m_spd_x = PLAYER_MOVE_POW;
+		m_right_flag = true;
+		m_left_flag = false;
+	}
 	//¶ˆÚ“®
 	if (g_key.Left)
+	{
 		m_spd_x = -PLAYER_MOVE_POW;
+		m_right_flag = false;
+		m_left_flag = true;
+	}
 	//ƒWƒƒƒ“ƒv
 	if (g_keyTracker->pressed.Up && !m_jump_flag && m_grp_h == PLAYER_GRP)
 	{
@@ -71,7 +81,37 @@ void Player::Move()
 		m_pos_x = 0;
 	}
 	
-	
+	if (m_right_flag == true && m_grp_h == 32 && m_grp_w == 32)
+	{
+		m_grp_x = 0;
+		m_grp_y = 0;
+	}
+	if (m_left_flag == true && m_grp_h == 32 && m_grp_w == 32)
+	{
+		m_grp_x = 80;
+		m_grp_y = 0;
+	}
+	if (m_right_flag == true && m_grp_h == 16 && m_grp_w == 32)
+	{
+		m_grp_x = 48;
+		m_grp_y = 16;
+	}
+	if (m_left_flag == true && m_grp_h == 16 && m_grp_w == 32)
+	{
+		m_grp_x = 48;
+		m_grp_y = 16;
+	}
+	if (m_right_flag == true && m_grp_h == 32 && m_grp_w == 16)
+	{
+		m_grp_x = 32;
+		m_grp_y = 0;
+	}
+	if (m_left_flag == true && m_grp_h == 32 && m_grp_w == 16)
+	{
+		m_grp_x = 80 + 32;
+		m_grp_y = 0;
+	}
+
 }
 
 //----------------------------------------------------------------------

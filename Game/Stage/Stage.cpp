@@ -255,15 +255,6 @@ void Stage::Update()
 	MapSideDecison();	//マップチップとの横の当たり判定
 	MapJumpDecison();	//マップチップとの上の当たり判定
 
-	//	ジャンプしているなら
-	//if (!m_player->GetJump())
-	//{
-	//	//	プレスとプレイヤーが当たっていたらプレイヤーの大きさを変える
-	//	if (CollisionPress())
-	//	{
-	//		m_player->ChangePlayer();
-	//	}
-	//}
 	//スイッチ
 	if (CollisionSwitch())
 		m_switch->Swtiching();	//スイッチのオンオフの切り替え
